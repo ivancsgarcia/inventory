@@ -20,124 +20,233 @@ class _MySignUpFormState extends State<MySignUpForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(),
         body: Form(
-      key: _formKey,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Create Your Account'),
-            TextFormField(
-              controller: _firstNameController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.account_circle),
-                labelText: 'First Name:',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your first name';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _lastNameController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.account_circle),
-                labelText: 'Last Name:',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your last name';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.email),
-                labelText: 'Email:',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.account_circle),
-                labelText: 'Username:',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your username';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.account_circle),
-                labelText: 'Password:',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your password';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _confirmPasswordController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.account_circle),
-                labelText: 'Confirm Password:',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please confirm your password';
-                }
-                return null;
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const MyLogInForm()));
-              },
-              child: const Text('Sign Up'),
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text('Sign up via'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Icon(Icons.facebook),
-                Image.network(
-                  'https://w7.pngwing.com/pngs/506/509/png-transparent-google-company-text-logo.png',
-                  width: 24.0,
-                  height: 24.0,
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Create Your Account',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30.0,
                 ),
-                Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png',
-                  width: 24.0,
-                  height: 24.0,
+              ),
+              const SizedBox(height: 30.0),
+              SizedBox(
+                width: 300.0,
+                child: TextFormField(
+                  controller: _firstNameController,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: const BorderSide(color: Colors.black)),
+                      prefixIcon: const Icon(Icons.account_circle),
+                      hintText: 'First Name',
+                      hintStyle: const TextStyle(fontSize: 18.0)),
+                  style: const TextStyle(fontSize: 18.0),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your first name';
+                    }
+                    return null;
+                  },
                 ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    ));
+              ),
+              const SizedBox(height: 10.0),
+              SizedBox(
+                width: 300.0,
+                child: TextFormField(
+                  controller: _lastNameController,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: const BorderSide(color: Colors.black)),
+                      prefixIcon: const Icon(Icons.account_circle),
+                      hintText: 'Last Name',
+                      hintStyle: const TextStyle(fontSize: 18.0)),
+                  style: const TextStyle(fontSize: 18.0),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your last name';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              SizedBox(
+                width: 300.0,
+                child: TextFormField(
+                  controller: _emailController,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: const BorderSide(color: Colors.black)),
+                      prefixIcon: const Icon(Icons.email),
+                      hintText: 'Email',
+                      hintStyle: const TextStyle(fontSize: 18.0)),
+                  style: const TextStyle(fontSize: 18.0),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              SizedBox(
+                width: 300.0,
+                child: TextFormField(
+                  controller: _usernameController,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: const BorderSide(color: Colors.black)),
+                      prefixIcon: const Icon(Icons.account_circle),
+                      hintText: 'Username',
+                      hintStyle: const TextStyle(fontSize: 18.0)),
+                  style: const TextStyle(fontSize: 18.0),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your username';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              SizedBox(
+                width: 300.0,
+                child: TextFormField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: const BorderSide(color: Colors.black)),
+                      prefixIcon: const Icon(Icons.account_circle),
+                      hintText: 'Password',
+                      hintStyle: const TextStyle(fontSize: 18.0)),
+                  style: const TextStyle(fontSize: 18.0),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              SizedBox(
+                width: 300.0,
+                child: TextFormField(
+                  controller: _confirmPasswordController,
+                  obscureText: true,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: const BorderSide(color: Colors.black)),
+                      prefixIcon: const Icon(Icons.account_circle),
+                      hintText: 'Confirm Password',
+                      hintStyle: const TextStyle(fontSize: 18.0)),
+                  style: const TextStyle(fontSize: 18.0),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please confirm your password';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              const SizedBox(
+                height: 10.0,
+              ),
+              const SizedBox(height: 20.0),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF363030),
+                    minimumSize: const Size(200, 50)),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyLogInForm()));
+                },
+                child: const Text(
+                  'SIGN UP',
+                  style:
+                      TextStyle(fontSize: 20.0, color: Colors.white, shadows: [
+                    Shadow(
+                      offset: Offset(2.0, 2.0),
+                      blurRadius: 3.0,
+                      color: Color(0xFF808080),
+                    )
+                  ]),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Sign Up via',
+                              style: TextStyle(fontSize: 18.0),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.facebook,
+                              size: 30.0,
+                            ),
+                            const SizedBox(
+                              width: 10.0,
+                            ),
+                            Image.network(
+                              'https://w7.pngwing.com/pngs/506/509/png-transparent-google-company-text-logo.png',
+                              width: 30.0,
+                              height: 30.0,
+                            ),
+                            const SizedBox(
+                              width: 10.0,
+                            ),
+                            Image.network(
+                              'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png',
+                              width: 30.0,
+                              height: 30.0,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }

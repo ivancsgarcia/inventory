@@ -11,13 +11,15 @@ class _MyStartingState extends State<MyStarting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(),
         body: Column(
-      children: [
-        // Image.asset(''),
-        Container(
-          child: const Column(),
-        )
-      ],
-    ));
+          children: [
+            // Image.asset(''),
+            Container(
+              color: Colors.green,
+              child: const Column(),
+            )
+          ],
+        ));
   }
 }
