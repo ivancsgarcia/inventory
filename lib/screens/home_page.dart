@@ -6,6 +6,10 @@ class MyHome extends StatelessWidget {
 
   final user = FirebaseAuth.instance.currentUser!;
 
+  void _logOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +27,7 @@ class MyHome extends StatelessWidget {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: _logOut,
               icon: const Icon(
                 Icons.settings,
                 size: 30.0,

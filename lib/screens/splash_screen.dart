@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/try.dart';
+import 'package:flutter_application_1/screens/auth_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const SignInPage(),
+          builder: (context) => const AuthPage(),
         ),
       );
     });

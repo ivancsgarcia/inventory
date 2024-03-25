@@ -40,12 +40,40 @@ class _SignInPageState extends State<SignInPage> {
 
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        // print('No user found for that email.');
+        userNotFound();
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        // print('Wrong password provided for that user.');
+        wrongPassword();
       }
     }
+  }
+
+  void userNotFound() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          title: Text('User Not Found'),
+          content: Text('No user found for that email.'),
+        );
+      },
+    );
+  }
+
+  void wrongPassword() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          title: Text('Wrong Password'),
+          content: Text('Wrong password provided for that user.'),
+        );
+      },
+    );
   }
 
   @override
