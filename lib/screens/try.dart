@@ -1,85 +1,155 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/textformfield.dart';
+import 'package:flutter_application_1/screens/try2.dart';
 
-class Try extends StatelessWidget {
-  const Try({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  // final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _signIn() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'USERNAME',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              const SizedBox(height: 10.0),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Enter Username',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+        appBar: AppBar(
+          title: const Text('Sign In'),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Form(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Email Field
+                MyTextFormField(
+                  controller: _emailController,
+                  labelText: 'Email',
+                  obscureText: false,
+                ),
+                const SizedBox(height: 20.0),
+                // Password Field
+                MyTextFormField(
+                  controller: _passwordController,
+                  labelText: 'Password',
+                  obscureText: true,
+                ),
+                // Forgot Password
+                GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    'Forgot Password?',
+                    style: TextStyle(color: Colors.blue),
                   ),
                 ),
-              ),
-              const SizedBox(height: 10.0),
-              const Text(
-                'PASSWORD',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              const SizedBox(height: 10.0),
-              TextField(
-                obscureText: true, // Set to true for password field
-                decoration: InputDecoration(
-                  hintText: 'Enter Password',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('Forgot Password'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
+                const SizedBox(height: 20.0),
+                // Sign In Button
+                Center(
+                  child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      shadowColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                      backgroundColor: Colors.blue,
+                    ),
+                    onPressed: _signIn,
+                    child: const Text(
+                      "Sign In",
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
                     ),
-                    child: const Text('LOG IN'),
                   ),
-                ],
-              ),
-              const SizedBox(height: 10.0),
-              TextButton(
-                onPressed: () {},
-                child: const Text('SIGN UP'),
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+                ),
+                // Sign Up Button
+                const SizedBox(height: 20.0),
+                Center(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SignUpPage(),
+                      ));
+                    },
+                    child: const Text(
+                      "Sign Up",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )),
+            Container(
+              width: 120,
+              height: 50,
+              color: Colors.black.withOpacity(.1),
+              child: Column(
+                children: [
                   const Text('Log in via'),
-                  const SizedBox(width: 5.0),
-                  Image.asset('assets/fgo_logo.png',
-                      width:
-                          25.0), // Assuming you have an FGO logo image in the assets folder
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.facebook),
+                      const SizedBox(width: 10.0),
+                      Image.network(
+                        'https://w7.pngwing.com/pngs/506/509/png-transparent-google-company-text-logo.png',
+                        width: 30.0,
+                        height: 30.0,
+                      ),
+                      const SizedBox(width: 10.0),
+                      Image.network(
+                        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png',
+                        width: 30.0,
+                        height: 30.0,
+                      ),
+                    ],
+                  )
                 ],
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            )
+          ],
+        ));
   }
 }

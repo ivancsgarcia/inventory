@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyHome extends StatelessWidget {
-  const MyHome({super.key});
+  MyHome({super.key});
+
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +17,9 @@ class MyHome extends StatelessWidget {
               Icons.account_circle,
               size: 30.0,
             )),
-        title: const Text(
-          'Kim Julianne Sena',
-          style: TextStyle(),
+        title: Text(
+          user.email!,
+          style: const TextStyle(),
         ),
         actions: [
           IconButton(

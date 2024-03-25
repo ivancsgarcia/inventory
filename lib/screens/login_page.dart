@@ -88,10 +88,8 @@ class _MyLogInFormState extends State<MyLogInForm> {
                     if (_formKey.currentState!.validate()) {
                       if (_usernameController.text == 'user' &&
                           _passwordController.text == 'password') {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyHome()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MyHome()));
                       } else {}
                     }
                   },
