@@ -4,25 +4,28 @@ class MyTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
   final bool obscureText;
+  final IconData icondata;
 
   const MyTextFormField({
     super.key,
     required this.controller,
     required this.labelText,
     required this.obscureText,
+    required this.icondata,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400,
+      width: 360,
       height: 70,
-      color: Colors.black.withOpacity(.1),
       child: TextFormField(
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.account_circle), labelText: labelText),
+          prefixIcon: Icon(icondata),
+          labelText: labelText,
+        ),
       ),
     );
   }
