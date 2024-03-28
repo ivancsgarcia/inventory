@@ -4,10 +4,13 @@ import 'package:flutter_application_1/components/button.dart';
 import 'package:flutter_application_1/components/federated_provider.dart';
 import 'package:flutter_application_1/components/intro.dart';
 import 'package:flutter_application_1/components/textformfield.dart';
-import 'package:flutter_application_1/screens/signIn_page.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  final Function() onTap;
+  const SignUpPage({
+    super.key,
+    required this.onTap,
+  });
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -79,7 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
         // ),
         body: SafeArea(
       child: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -166,13 +169,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     children: [
                       const Text('Already have an account? '),
                       GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const SignInPage(),
-                              ),
-                            );
-                          },
+                          onTap: widget.onTap,
                           child: const Text(
                             'Sign In',
                             style: TextStyle(color: Colors.blue),

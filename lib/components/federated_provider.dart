@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/services/auth_service.dart';
 
 class FederatedProviders extends StatelessWidget {
   final String text;
@@ -17,7 +18,7 @@ class FederatedProviders extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
                   text,
-                  style: TextStyle(fontSize: 16.0),
+                  style: const TextStyle(fontSize: 16.0),
                 ),
               ),
               const Expanded(child: Divider())
@@ -34,10 +35,15 @@ class FederatedProviders extends StatelessWidget {
               height: 40.0,
             ),
             const SizedBox(width: 10.0),
-            Image.asset(
-              'lib/assets/images/google-logo.png',
-              width: 40.0,
-              height: 40.0,
+            GestureDetector(
+              onTap: () {
+                signInWithGoogle();
+              },
+              child: Image.asset(
+                'lib/assets/images/google-logo.png',
+                width: 40.0,
+                height: 40.0,
+              ),
             ),
             const SizedBox(width: 10.0),
             Image.asset(
