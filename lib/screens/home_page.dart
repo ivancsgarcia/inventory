@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class MyHome extends StatelessWidget {
-  MyHome({super.key});
+class HomePage extends StatelessWidget {
+  HomePage({super.key});
 
   final user = FirebaseAuth.instance.currentUser!;
 

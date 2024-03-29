@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/button.dart';
-import 'package:flutter_application_1/components/federated_provider.dart';
+import 'package:flutter_application_1/components/federated_provider_list.dart';
 import 'package:flutter_application_1/components/intro.dart';
 import 'package:flutter_application_1/components/textformfield.dart';
 
@@ -158,7 +158,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(height: 30.0),
 
                   // Federated Providers
-                  const FederatedProviders(text: 'Sign up via'),
+                  const FederatedProvidersList(text: 'Sign up via'),
                   const SizedBox(
                     height: 60.0,
                   ),

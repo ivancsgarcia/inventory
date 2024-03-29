@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/button.dart';
-import 'package:flutter_application_1/components/federated_provider.dart';
+import 'package:flutter_application_1/components/federated_provider_list.dart';
 import 'package:flutter_application_1/components/intro.dart';
 import 'package:flutter_application_1/components/textformfield.dart';
+import 'package:flutter_application_1/screens/forgotPassword_page.dart';
 
 class SignInPage extends StatefulWidget {
   final Function() onTap;
+
   const SignInPage({
     super.key,
     required this.onTap,
@@ -17,7 +19,6 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  // final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -67,9 +68,6 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //   automaticallyImplyLeading: false,
-        // ),
         body: SafeArea(
       child: SingleChildScrollView(
         child: SizedBox(
@@ -88,6 +86,8 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(
                 height: 20.0,
               ),
+
+              // Sign In Form
               Form(
                   child: Column(
                 children: [
@@ -116,7 +116,14 @@ class _SignInPageState extends State<SignInPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForgotPasswordPage(),
+                              ),
+                            );
+                          },
                           child: const Text(
                             'Forgot Password?',
                             style: TextStyle(color: Colors.blue),
@@ -140,7 +147,7 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(height: 30.0),
 
               // Federated Providers
-              const FederatedProviders(text: 'Sign in via'),
+              const FederatedProvidersList(text: 'Sign in via'),
               const SizedBox(
                 height: 60.0,
               ),
