@@ -13,7 +13,7 @@ class Intro extends StatelessWidget {
         Text(
           text,
           style: const TextStyle(
-            fontSize: 30.0,
+            fontSize: 20.0,
             fontWeight: FontWeight.bold,
           ),
         ),

@@ -22,9 +22,15 @@ class MyTextFormField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         obscureText: obscureText,
+        style: const TextStyle(
+          fontSize: 16.0,
+        ),
         decoration: InputDecoration(
           prefixIcon: Icon(icondata),
           labelText: labelText,
+          labelStyle: const TextStyle(
+            fontSize: 16.0,
+          ),
         ),
       ),
     );
