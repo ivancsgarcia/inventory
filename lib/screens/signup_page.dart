@@ -172,7 +172,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           onTap: widget.onTap,
                           child: const Text(
                             'Sign In',
-                            style: TextStyle(color: Colors.blue),
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
                           )),
                     ],
                   ),

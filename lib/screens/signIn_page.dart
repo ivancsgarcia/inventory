@@ -126,7 +126,9 @@ class _SignInPageState extends State<SignInPage> {
                           },
                           child: const Text(
                             'Forgot Password?',
-                            style: TextStyle(color: Colors.blue),
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
@@ -161,7 +163,8 @@ class _SignInPageState extends State<SignInPage> {
                       onTap: widget.onTap,
                       child: const Text(
                         'Sign Up',
-                        style: TextStyle(color: Colors.blue),
+                        style: TextStyle(
+                            color: Colors.blue, fontWeight: FontWeight.bold),
                       )),
                 ],
               ),

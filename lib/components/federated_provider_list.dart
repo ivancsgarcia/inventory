@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/federated_provider.dart';
 import 'package:flutter_application_1/services/auth_service.dart';

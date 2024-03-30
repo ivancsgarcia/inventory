@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/function_button.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -68,10 +69,10 @@ class HomePage extends StatelessWidget {
                   border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
                         'USER MANAGEMENT',
@@ -82,60 +83,20 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            width: 130.0,
-                            height: 130.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              color: const Color(0xFFE6CCA5),
-                            ),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.list_alt,
-                                  size: 40.0,
-                                ),
-                                SizedBox(height: 10.0),
-                                Text(
-                                  'User List',
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
+                          FunctionButton(
+                            text: 'User List',
+                            icondata: Icons.list_alt,
                           ),
-                          const SizedBox(
+                          SizedBox(
                             width: 10.0,
                           ),
-                          Container(
-                            width: 130.0,
-                            height: 130.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              color: const Color(0xFFE6CCA5),
-                            ),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add_box,
-                                  size: 40.0,
-                                ),
-                                SizedBox(height: 10.0),
-                                Text(
-                                  'Add User',
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
+                          FunctionButton(
+                            text: 'Add User',
+                            icondata: Icons.add_box,
                           ),
                         ],
                       ),
@@ -152,10 +113,10 @@ class HomePage extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(20.0)),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
                         'INVENTORY FUNCTION',
@@ -168,132 +129,32 @@ class HomePage extends StatelessWidget {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Container(
-                              width: 130.0,
-                              height: 130.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: const Color(0xFFE6CCA5),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.add_circle,
-                                    size: 40.0,
-                                  ),
-                                  SizedBox(height: 10.0),
-                                  Text(
-                                    'Add Items',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
+                            FunctionButton(
+                              text: 'Add Items',
+                              icondata: Icons.add_circle,
                             ),
-                            const SizedBox(width: 10.0),
-                            Container(
-                              width: 130.0,
-                              height: 130.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: const Color(0xFFE6CCA5),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.shopping_cart,
-                                    size: 40.0,
-                                  ),
-                                  SizedBox(height: 10.0),
-                                  Text(
-                                    'Check-out Items',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
+                            SizedBox(width: 10.0),
+                            FunctionButton(
+                              text: 'Check-out Items',
+                              icondata: Icons.shopping_cart,
                             ),
-                            const SizedBox(width: 10.0),
-                            Container(
-                              width: 130.0,
-                              height: 130.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: const Color(0xFFE6CCA5),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.edit_document,
-                                    size: 40.0,
-                                  ),
-                                  SizedBox(height: 10.0),
-                                  Text(
-                                    'View/Edit/Delete',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
+                            SizedBox(width: 10.0),
+                            FunctionButton(
+                              text: 'View/Edit/Delete',
+                              icondata: Icons.edit_document,
                             ),
-                            const SizedBox(width: 10.0),
-                            Container(
-                              width: 130.0,
-                              height: 130.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: const Color(0xFFE6CCA5),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.note,
-                                    size: 40.0,
-                                  ),
-                                  SizedBox(height: 10.0),
-                                  Text(
-                                    'Daily Reports',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
+                            SizedBox(width: 10.0),
+                            FunctionButton(
+                              text: 'Daily Reports',
+                              icondata: Icons.note,
                             ),
-                            const SizedBox(width: 10.0),
-                            Container(
-                              width: 130.0,
-                              height: 130.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: const Color(0xFFE6CCA5),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.book,
-                                    size: 40.0,
-                                  ),
-                                  SizedBox(height: 10.0),
-                                  Text(
-                                    'Other Reports',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
+                            SizedBox(width: 10.0),
+                            FunctionButton(
+                              text: 'Other Reports',
+                              icondata: Icons.book,
                             ),
                           ],
                         ),
