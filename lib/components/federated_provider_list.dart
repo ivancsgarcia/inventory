@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/federated_provider.dart';
-import 'package:flutter_application_1/services/auth_service.dart';
+import 'package:flutter_application_1/services/facebook_auth.dart';
+import 'package:flutter_application_1/services/google_auth.dart';
 
 class FederatedProvidersList extends StatelessWidget {
   final String text;
@@ -31,11 +32,14 @@ class FederatedProvidersList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FederatedProvider(
-                image: 'lib/assets/images/facebook-logo.png', onTap: null),
+              image: 'lib/assets/images/facebook-logo.png',
+              onTap: signInWithFacebook,
+            ),
             SizedBox(width: 10.0),
             FederatedProvider(
-                image: 'lib/assets/images/google-logo.png',
-                onTap: signInWithGoogle),
+              image: 'lib/assets/images/google-logo.png',
+              onTap: signInWithGoogle,
+            ),
           ],
         ),
       ],

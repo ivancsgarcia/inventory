@@ -15,8 +15,8 @@ class FederatedProvider extends StatelessWidget {
       onTap: onTap,
       child: Image.asset(
         image,
-        width: 40.0,
-        height: 40.0,
+        width: 50.0,
+        height: 50.0,
       ),
     );
   }

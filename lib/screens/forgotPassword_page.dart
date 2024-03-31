@@ -55,7 +55,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 text2: 'Please enter your email.',
               ),
             ),
-            const SizedBox(height: 60.0),
+            const SizedBox(height: 20.0),
 
             // Email Field
             Row(
@@ -69,14 +69,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 40.0),
+            const SizedBox(height: 30.0),
 
             // Send Button
             Center(
               child: MyButton(
                   onPressed: passwordReset,
                   text: 'Send',
-                  bgcolor: Colors.black,
+                  bgcolor: const Color(0xFF363030),
                   textColor: Colors.white),
             )
           ],

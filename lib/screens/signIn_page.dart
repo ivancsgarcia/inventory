@@ -30,14 +30,14 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   void _signIn() async {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return const Center(
+    //       child: CircularProgressIndicator(),
+    //     );
+    //   },
+    // );
 
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -45,9 +45,9 @@ class _SignInPageState extends State<SignInPage> {
         password: _passwordController.text,
       );
 
-      Navigator.pop(context);
+      // Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
+      // Navigator.pop(context);
       showErrorMessage(e.code);
     }
   }
@@ -83,9 +83,7 @@ class _SignInPageState extends State<SignInPage> {
                   text2: 'Please sign in your account.',
                 ),
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
+              const SizedBox(height: 20.0),
 
               // Sign In Form
               Form(
@@ -109,7 +107,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
 
                   // Forgot Password
-                  const SizedBox(height: 2.0),
+                  const SizedBox(height: 1.0),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 26.0),
                     child: Row(
@@ -120,7 +118,8 @@ class _SignInPageState extends State<SignInPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ForgotPasswordPage(),
+                                builder: (context) =>
+                                    const ForgotPasswordPage(),
                               ),
                             );
                           },
@@ -128,7 +127,8 @@ class _SignInPageState extends State<SignInPage> {
                             'Forgot Password?',
                             style: TextStyle(
                                 color: Colors.blue,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                       ],
@@ -150,21 +150,27 @@ class _SignInPageState extends State<SignInPage> {
 
               // Federated Providers
               const FederatedProvidersList(text: 'Sign in via'),
-              const SizedBox(
-                height: 60.0,
-              ),
+              const SizedBox(height: 60.0),
 
               // Sign Up link
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Don\'t have an account? '),
+                  const Text(
+                    'Don\'t have an account? ',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
                   GestureDetector(
                       onTap: widget.onTap,
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+                          color: Colors.blue,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       )),
                 ],
               ),
