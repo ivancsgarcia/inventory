@@ -7,9 +7,9 @@ import 'package:flutter_application_1/components/function_button.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  // final user = FirebaseAuth.instance.currentUser!;
-  final db = FirebaseFirestore.instance;
-  final auth = FirebaseAuth.instance;
+  final user = FirebaseAuth.instance.currentUser!;
+  // final db = FirebaseFirestore.instance;
+  // final auth = FirebaseAuth.instance;
 
   void _logOut() async {
     await FirebaseAuth.instance.signOut();
@@ -26,20 +26,10 @@ class HomePage extends StatelessWidget {
               Icons.account_circle,
               size: 30.0,
             )),
-        title: StreamBuilder(
-            stream:
-                db.collection('users').doc(auth.currentUser?.uid).snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return const Text('Loading...');
-              }
-              return Text(
-                  "${snapshot.data!['firstName']} ${snapshot.data!['lastName']}");
-            }),
-        // Text(
-        //   user.email!,
-        //   style: const TextStyle(),
-        // ),
+        title: Text(
+          user.email!,
+          style: const TextStyle(),
+        ),
         actions: [
           IconButton(
               onPressed: _logOut,
