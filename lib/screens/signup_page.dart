@@ -35,7 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
     super.dispose();
   }
 
-  void _signUp() async {
+  void createAccount() async {
     // showDialog(
     //   context: context,
     //   builder: (BuildContext context) {
@@ -86,7 +86,12 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: SizedBox(
+          child: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+              image: AssetImage('lib/assets/images/signup-bg.png'),
+              fit: BoxFit.cover,
+            )),
             height: MediaQuery.of(context).size.height,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -152,7 +157,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     // Sign Up Button
                     Center(
                       child: MyButton(
-                        onPressed: _signUp,
+                        onPressed: createAccount,
                         text: 'Sign Up',
                         bgcolor: const Color(0xFF363030),
                         textColor: Colors.white,

@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/addUserPopUp.dart';
 import 'package:flutter_application_1/components/function_button.dart';
+import 'package:flutter_application_1/screens/addItem_page.dart';
+import 'package:flutter_application_1/screens/userList_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -77,10 +79,10 @@ class HomePage extends StatelessWidget {
                         border: Border.all(color: Colors.black),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
                               'USER MANAGEMENT',
@@ -91,18 +93,26 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 FunctionButton(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const UserListPage(),
+                                      ),
+                                    );
+                                  },
                                   text: 'User List',
                                   icondata: Icons.list_alt,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10.0,
                                 ),
-                                AddUserPopUp(),
+                                const AddUserPopUp(),
                               ],
                             ),
                           )
@@ -118,10 +128,10 @@ class HomePage extends StatelessWidget {
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(20.0)),
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
                               'INVENTORY FUNCTION',
@@ -134,30 +144,38 @@ class HomePage extends StatelessWidget {
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
                                   FunctionButton(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AddItemPage(),
+                                        ),
+                                      );
+                                    },
                                     text: 'Add Items',
                                     icondata: Icons.add_circle,
                                   ),
-                                  SizedBox(width: 10.0),
-                                  FunctionButton(
+                                  const SizedBox(width: 10.0),
+                                  const FunctionButton(
                                     text: 'Check-out Items',
                                     icondata: Icons.shopping_cart,
                                   ),
-                                  SizedBox(width: 10.0),
-                                  FunctionButton(
+                                  const SizedBox(width: 10.0),
+                                  const FunctionButton(
                                     text: 'View/Edit/Delete',
                                     icondata: Icons.edit_document,
                                   ),
-                                  SizedBox(width: 10.0),
-                                  FunctionButton(
+                                  const SizedBox(width: 10.0),
+                                  const FunctionButton(
                                     text: 'Daily Reports',
                                     icondata: Icons.note,
                                   ),
-                                  SizedBox(width: 10.0),
-                                  FunctionButton(
+                                  const SizedBox(width: 10.0),
+                                  const FunctionButton(
                                     text: 'Other Reports',
                                     icondata: Icons.book,
                                   ),
@@ -229,7 +247,8 @@ class HomePage extends StatelessWidget {
               size: 40.0,
             ),
             Icon(
-              Icons.search,
+              // Icons.delete_outline,
+              Icons.search_rounded,
               size: 40.0,
             ),
           ],

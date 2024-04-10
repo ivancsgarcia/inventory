@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/federated_provider.dart';
-import 'package:flutter_application_1/services/facebook_auth.dart';
-import 'package:flutter_application_1/services/google_auth.dart';
+import 'package:flutter_application_1/services/firebase_auth.dart';
 
 class FederatedProvidersList extends StatelessWidget {
   final String text;

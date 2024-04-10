@@ -14,8 +14,34 @@ Future addUserDetails(String firstName, String lastName, String email) async {
   };
 
 // Add a new document with a generated ID
-  db.collection("users").add(user).then((documentSnapshot) {
-    print('DocumentSnapshot added with ID: ${documentSnapshot.id}');
+  db
+      .collection("users")
+      .doc(auth.currentUser?.uid)
+      .set(user)
+      .then((documentSnapshot) {
+    // print('DocumentSnapshot added with ID: ${documentSnapshot.id}');
+    print('User\'s Info added to the database.');
+  });
+}
+
+Future addEmployeeDetails(
+    String firstName, String lastName, String email, String newUserID) async {
+  final user = <String, dynamic>{
+    "firstName": firstName,
+    "lastName": lastName,
+    "email": email,
+  };
+
+// Add a new document with a generated ID
+  db
+      .collection("users")
+      .doc(auth.currentUser?.uid)
+      .collection("employees")
+      .doc(newUserID)
+      .set(user)
+      .then((documentSnapshot) {
+    // print('DocumentSnapshot added with ID: ${documentSnapshot.id}');
+    print('User\'s Info added to the database.');
   });
 }
 

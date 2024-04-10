@@ -29,7 +29,7 @@ class _SignInPageState extends State<SignInPage> {
     super.dispose();
   }
 
-  void _signIn() async {
+  void signIn() async {
     // showDialog(
     //   context: context,
     //   builder: (BuildContext context) {
@@ -70,7 +70,12 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
-        child: SizedBox(
+        child: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage('lib/assets/images/login-bg.png'),
+            fit: BoxFit.cover,
+          )),
           height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -139,7 +144,7 @@ class _SignInPageState extends State<SignInPage> {
                   // Sign In Button
                   Center(
                       child: MyButton(
-                    onPressed: _signIn,
+                    onPressed: signIn,
                     text: 'Sign In',
                     bgcolor: const Color(0xFF363030),
                     textColor: Colors.white,

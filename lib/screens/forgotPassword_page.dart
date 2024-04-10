@@ -42,7 +42,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
-          child: SizedBox(
+          child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('lib/assets/images/forgotpass-bg.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
         height: MediaQuery.of(context).size.height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
