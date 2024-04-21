@@ -18,6 +18,7 @@ class _AddUserPopUpState extends State<AddUserPopUp> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
 
   @override
   void dispose() {
@@ -26,6 +27,7 @@ class _AddUserPopUpState extends State<AddUserPopUp> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _phoneNumberController.dispose();
     super.dispose();
   }
 
@@ -43,6 +45,7 @@ class _AddUserPopUpState extends State<AddUserPopUp> {
           _firstNameController.text,
           _lastNameController.text,
           _emailController.text,
+          _phoneNumberController.text,
           newUserID,
         );
       } else {
@@ -78,9 +81,9 @@ class _AddUserPopUpState extends State<AddUserPopUp> {
             "Add User",
             style: TextStyle(
               fontSize: 20.0,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.bold,
             ),
-            textAlign: TextAlign.start,
+            textAlign: TextAlign.center,
           ),
           content: SingleChildScrollView(
             child: SizedBox(
@@ -92,42 +95,53 @@ class _AddUserPopUpState extends State<AddUserPopUp> {
                         MyTextFormField(
                           controller: _firstNameController,
                           labelText: 'First Name',
-                          obscureText: false,
                           icondata: Icons.account_circle,
                         ),
-                        SizedBox(height: 10.0),
+                        const SizedBox(height: 10.0),
                         MyTextFormField(
                           controller: _lastNameController,
                           labelText: 'Last Name',
-                          obscureText: false,
                           icondata: Icons.account_circle,
                         ),
-                        SizedBox(height: 10.0),
+                        const SizedBox(height: 10.0),
+                        MyTextFormField(
+                            controller: _phoneNumberController,
+                            labelText: 'Phone Number',
+                            icondata: Icons.email),
+                        const SizedBox(height: 10.0),
                         MyTextFormField(
                             controller: _emailController,
                             labelText: 'Email',
-                            obscureText: false,
                             icondata: Icons.email),
-                        SizedBox(height: 10.0),
+                        const SizedBox(height: 10.0),
                         MyTextFormField(
                             controller: _passwordController,
                             labelText: 'Password',
                             obscureText: true,
                             icondata: Icons.password),
-                        SizedBox(height: 10.0),
+                        const SizedBox(height: 10.0),
                         MyTextFormField(
                             controller: _confirmPasswordController,
                             labelText: 'Confirm Password',
                             obscureText: true,
                             icondata: Icons.password),
-                        SizedBox(height: 30.0),
+                        const SizedBox(height: 30.0),
                         MyButton(
-                          onPressed: createAccount,
+                          onPressed: () {
+                            createAccount();
+
+                            // _firstNameController.clear();
+                            // _lastNameController.clear();
+                            // _phoneNumberController.clear();
+                            // _emailController.clear();
+                            // _passwordController.clear();
+                            // _confirmPasswordController.clear();
+                          },
                           text: 'Add User',
                           bgcolor: const Color(0xFF363030),
                           textColor: Colors.white,
                         ),
-                        SizedBox(height: 15.0),
+                        const SizedBox(height: 15.0),
                         MyButton(
                           onPressed: () {
                             Navigator.pop(context);

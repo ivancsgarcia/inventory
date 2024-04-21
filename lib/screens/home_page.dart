@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/addItemPopUp.dart';
 import 'package:flutter_application_1/components/addUserPopUp.dart';
 import 'package:flutter_application_1/components/function_button.dart';
-import 'package:flutter_application_1/screens/addItem_page.dart';
+import 'package:flutter_application_1/screens/showItems.dart';
 import 'package:flutter_application_1/screens/userList_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -147,25 +148,22 @@ class HomePage extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  FunctionButton(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AddItemPage(),
-                                        ),
-                                      );
-                                    },
-                                    text: 'Add Items',
-                                    icondata: Icons.add_circle,
-                                  ),
+                                  const AddItemPopUp(),
                                   const SizedBox(width: 10.0),
                                   const FunctionButton(
                                     text: 'Check-out Items',
                                     icondata: Icons.shopping_cart,
                                   ),
                                   const SizedBox(width: 10.0),
-                                  const FunctionButton(
+                                  FunctionButton(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ShowItems(),
+                                        ),
+                                      );
+                                    },
                                     text: 'View/Edit/Delete',
                                     icondata: Icons.edit_document,
                                   ),

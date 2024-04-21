@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class FunctionButton extends StatelessWidget {
   final String text;
   final IconData icondata;
-  final Function()? onTap;
+  // final Function()? onTap;
+  final void Function()? onTap;
   const FunctionButton({
     super.key,
     required this.text,

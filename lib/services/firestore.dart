@@ -23,12 +23,13 @@ Future addUserDetails(String firstName, String lastName, String email) async {
   });
 }
 
-Future addEmployeeDetails(
-    String firstName, String lastName, String email, String newUserID) async {
+Future addEmployeeDetails(String firstName, String lastName, String email,
+    String phoneNumber, String newUserID) async {
   final user = <String, dynamic>{
     "firstName": firstName,
     "lastName": lastName,
     "email": email,
+    "phoneNumber": phoneNumber,
   };
 
 // Add a new document with a generated ID
@@ -54,31 +55,42 @@ Future getUserName() async {
 
 class CrudMethods {
   // Get
+  final CollectionReference dbItems =
+      db.collection("users").doc(auth.currentUser?.uid).collection("items");
 
   // Create
-  Future addItems(
+  Future<void> addItem(
     String category,
     String productName,
     String cost,
     String sellingPrice,
-  ) async {
-    try {
-      final item = <String, dynamic>{
-        "category": category,
-        "productName": productName,
-        "cost": cost,
-        "sellingPrice": sellingPrice,
-      };
+  ) {
+    return dbItems.add({
+      'category': category,
+      'productName': productName,
+      'cost': cost,
+      'sellingPrice': sellingPrice,
+    });
+  }
 
-      db
-          .collection("users")
-          .doc(auth.currentUser?.uid)
-          .collection("items")
-          .add(item)
-          .then((DocumentReference doc) =>
-              print('DocumentSnapshot added with ID: ${doc.id}'));
-    } catch (e) {
-      return 'Error adding item';
-    }
+  // Read
+  Stream<QuerySnapshot> getItems() {
+    return dbItems.snapshots();
+  }
+
+  // Update
+  Future<void> updateItem(
+    String docID,
+    String newCategory,
+    String newProductName,
+    String newCost,
+    String newSellingPrice,
+  ) {
+    return dbItems.doc(docID).update({
+      'category': newCategory,
+      'productName': newProductName,
+      'cost': newCost,
+      'sellingPrice': newSellingPrice,
+    });
   }
 }
