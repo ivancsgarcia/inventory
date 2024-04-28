@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ Future addUserDetails(String firstName, String lastName, String email) async {
     "firstName": firstName,
     "lastName": lastName,
     "email": email,
+    "type": "Admin",
   };
 
 // Add a new document with a generated ID
@@ -23,13 +26,15 @@ Future addUserDetails(String firstName, String lastName, String email) async {
   });
 }
 
-Future addEmployeeDetails(String firstName, String lastName, String email,
-    String phoneNumber, String newUserID) async {
+Future addEmployeeDetails(
+    String firstName, String lastName, String email, String phoneNumber) async {
   final user = <String, dynamic>{
     "firstName": firstName,
     "lastName": lastName,
     "email": email,
     "phoneNumber": phoneNumber,
+    'parent': auth.currentUser?.uid,
+    'type': 'Employee',
   };
 
 // Add a new document with a generated ID
@@ -37,7 +42,7 @@ Future addEmployeeDetails(String firstName, String lastName, String email,
       .collection("users")
       .doc(auth.currentUser?.uid)
       .collection("employees")
-      .doc(newUserID)
+      .doc()
       .set(user)
       .then((documentSnapshot) {
     // print('DocumentSnapshot added with ID: ${documentSnapshot.id}');
@@ -51,6 +56,15 @@ Future getUserName() async {
         ' ' +
         documentSnapshot.get('lastName'));
   });
+}
+
+// Fetch user details
+Stream<QuerySnapshot> getEmployeeDetails() {
+  return db
+      .collection("users")
+      .doc(user?.uid)
+      .collection("employees")
+      .snapshots();
 }
 
 class CrudMethods {
