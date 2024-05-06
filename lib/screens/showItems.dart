@@ -1,5 +1,9 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/components/addItemPopUp.dart';
 import 'package:flutter_application_1/services/firestore.dart';
 
@@ -18,6 +22,8 @@ class _ShowItemsState extends State<ShowItems> {
   final _productNameController = TextEditingController();
   final _costController = TextEditingController();
   final _sellingPriceController = TextEditingController();
+  final _quantityController = TextEditingController();
+  final _skuController = TextEditingController();
 
   final CrudMethods crudMethods = CrudMethods();
 
@@ -27,6 +33,8 @@ class _ShowItemsState extends State<ShowItems> {
     _productNameController.dispose();
     _costController.dispose();
     _sellingPriceController.dispose();
+    _quantityController.dispose();
+    _skuController.dispose();
     super.dispose();
   }
 
@@ -51,6 +59,11 @@ class _ShowItemsState extends State<ShowItems> {
                       child: Column(
                     children: [
                       MyTextFormField(
+                        controller: _skuController,
+                        icondata: Icons.code,
+                        labelText: 'SKU',
+                      ),
+                      MyTextFormField(
                         controller: _categoryController,
                         icondata: Icons.abc_sharp,
                         labelText: 'Category',
@@ -61,16 +74,21 @@ class _ShowItemsState extends State<ShowItems> {
                         icondata: Icons.abc_sharp,
                         labelText: 'Product Name',
                       ),
+                      MyTextFormField(
+                        controller: _quantityController,
+                        icondata: Icons.numbers,
+                        labelText: 'Quantity',
+                      ),
                       const SizedBox(height: 10),
                       MyTextFormField(
                         controller: _costController,
-                        icondata: Icons.abc_sharp,
+                        icondata: Icons.sell,
                         labelText: 'Cost',
                       ),
                       const SizedBox(height: 10),
                       MyTextFormField(
                         controller: _sellingPriceController,
-                        icondata: Icons.abc_sharp,
+                        icondata: Icons.sell,
                         labelText: 'Selling Price',
                       ),
                       const SizedBox(height: 30.0),
@@ -81,12 +99,16 @@ class _ShowItemsState extends State<ShowItems> {
                               _productNameController.text,
                               _costController.text,
                               _sellingPriceController.text,
+                              _skuController.text,
+                              _quantityController.text
                             );
 
                             _categoryController.clear();
                             _productNameController.clear();
                             _costController.clear();
                             _sellingPriceController.clear();
+                            _skuController.clear();
+                            _quantityController.clear();
                           },
                           text: "Add Item",
                           bgcolor: const Color(0xFF363030),
@@ -128,6 +150,7 @@ class _ShowItemsState extends State<ShowItems> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               const Padding(
@@ -146,143 +169,137 @@ class _ShowItemsState extends State<ShowItems> {
                 ),
               ),
               Container(
+                height: MediaQuery.of(context).size.height,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('lib/assets/images/show-bg.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  child: StreamBuilder(
-                    stream: crudMethods.getItems(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else if (snapshot.hasData) {
-                        List itemList = snapshot.data!.docs;
-
-                        return ListView.builder(
-                            itemCount: itemList.length,
-                            itemBuilder: (context, index) {
-                              DocumentSnapshot document = itemList[index];
-                              String docID = document.id;
-
-                              Map<String, dynamic> data =
-                                  document.data() as Map<String, dynamic>;
-                              String category = data['category'];
-                              String productName = data['productName'];
-                              String cost = data['cost'];
-                              String sellingPrice = data['sellingPrice'];
-
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 6),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    color: const Color(0xF17C5C2D),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0, vertical: 10.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            // height: 100,
-                                            // width: 100,
-                                            child: Image.asset(
-                                              'lib/assets/images/itrack_logo.png',
-                                              // width: 100,
-                                              // height: 100,
+                child: StreamBuilder(
+                  stream: crudMethods.getItems(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (snapshot.hasData) {
+                      List itemList = snapshot.data!.docs;
+                        
+                      return ListView.builder(
+                          physics: RangeMaintainingScrollPhysics(),
+                          // primary: false,
+                          itemCount: itemList.length,
+                          itemBuilder: (context, index) {
+                            DocumentSnapshot document = itemList[index];
+                            String docID = document.id;
+                        
+                            Map<String, dynamic> data =
+                                document.data() as Map<String, dynamic>;
+                            String category = data['category'];
+                            String productName = data['productName'];
+                            String cost = data['cost'];
+                            String sellingPrice = data['sellingPrice'];
+                            String quantity = data['sellingPrice'];
+                            String SKU = data['sellingPrice'];
+                        
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical:8),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      color: const Color(0xF17C5C2D),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0, vertical: 10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              child: Image.asset(
+                                                'lib/assets/images/itrack_logo.png',
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            // height: 100,
-                                            // width: 100,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  productName,
-                                                  style: const TextStyle(
-                                                      fontSize: 22.0,
-                                                      color: Colors.white),
-                                                ),
-                                                Text(
-                                                  category,
-                                                  style: const TextStyle(
-                                                      fontSize: 16.0,
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      color: Colors.white),
-                                                ),
-                                              ],
+                                          Expanded(
+                                            child: Container(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    productName,
+                                                    style: const TextStyle(
+                                                        fontSize: 22.0,
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    category,
+                                                    style: const TextStyle(
+                                                        fontSize: 16.0,
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "Quantity: $quantity",
+                                                    style: const TextStyle(
+                                                        fontSize: 16.0,
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "SKU: $SKU",
+                                                    style: const TextStyle(
+                                                        fontSize: 16.0,
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        color: Colors.white),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            height: 100,
-                                            width: 100,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                const Icon(Icons.menu,
-                                                    color: Colors.white),
-                                                Row(
-                                                  children: [
-                                                    const Icon(
-                                                        Icons.arrow_circle_left,
-                                                        size: 30.0,
-                                                        color: Colors.white),
-                                                    const SizedBox(width: 2.0),
-                                                    Text(
-                                                      cost,
-                                                      style: const TextStyle(
-                                                          fontSize: 20.0,
-                                                          color: Colors.white),
-                                                    ),
-                                                    const SizedBox(width: 2.0),
-                                                    const Icon(
-                                                        Icons
-                                                            .arrow_circle_right,
-                                                        size: 30.0,
-                                                        color: Colors.white),
+                                          Expanded(
+                                            child: Container(
+                                              height: 100,
+                                              width: 100,
+                                              child: const Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Icon(Icons.menu,
+                                                      color: Colors.white),
                                                   ],
-                                                )
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                        )
-                                      ],
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            });
-                      } else {
-                        return const Text("No data...");
-                      }
-                    },
-                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    } else {
+                      return const Text("No data...");
+                    }
+                  },
                 ),
               ),
             ],

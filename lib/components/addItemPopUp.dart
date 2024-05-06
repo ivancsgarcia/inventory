@@ -75,19 +75,20 @@ class _AddItemPopUpState extends State<AddItemPopUp> {
                       ),
                       const SizedBox(height: 30.0),
                       MyButton(
-                          onPressed: () {
-                            crudMethods.addItem(
-                              _categoryController.text,
-                              _productNameController.text,
-                              _costController.text,
-                              _sellingPriceController.text,
-                            );
+                          // onPressed: () {
+                          //   crudMethods.addItem(
+                          //     _categoryController.text,
+                          //     _productNameController.text,
+                          //     _costController.text,
+                          //     _sellingPriceController.text,
+                          //   );
 
-                            _categoryController.clear();
-                            _productNameController.clear();
-                            _costController.clear();
-                            _sellingPriceController.clear();
-                          },
+                          //   _categoryController.clear();
+                          //   _productNameController.clear();
+                          //   _costController.clear();
+                          //   _sellingPriceController.clear();
+                          // },
+                          onPressed: () {},
                           text: "Add Item",
                           bgcolor: const Color(0xFF363030),
                           textColor: Colors.white),

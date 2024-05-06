@@ -78,12 +78,17 @@ class CrudMethods {
     String productName,
     String cost,
     String sellingPrice,
+    String quantity,
+    String sku,
   ) {
     return dbItems.add({
+      'sku': sku,
       'category': category,
       'productName': productName,
+      'quantity': quantity,
       'cost': cost,
       'sellingPrice': sellingPrice,
+
     });
   }
 
@@ -99,10 +104,15 @@ class CrudMethods {
     String newProductName,
     String newCost,
     String newSellingPrice,
+    String newQuantity,
+    String newSKU,
+    
   ) {
     return dbItems.doc(docID).update({
+      'sku': newSKU,
       'category': newCategory,
       'productName': newProductName,
+      'quantity': newQuantity,
       'cost': newCost,
       'sellingPrice': newSellingPrice,
     });
