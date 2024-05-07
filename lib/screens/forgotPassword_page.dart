@@ -41,11 +41,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFB69F84),
+        backgroundColor: const Color(0xFFB69F84),
       ),
       body: SafeArea(
           child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('lib/assets/images/forgotpass-bg.png'),
             fit: BoxFit.cover,

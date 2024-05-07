@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/components/addUserPopUp.dart';
 import 'package:flutter_application_1/services/firestore.dart';
 
 import '../components/button.dart';
@@ -257,23 +256,12 @@ class _UserListPageState extends State<UserListPage> {
                                                 fontSize: 18.0,
                                               ),
                                             ),
-                                            // Text(
-                                            //   "Email: $email",
-                                            //   style: TextStyle(
-                                            //     color: Colors.white,
-                                            //     fontSize: 16.0,
-                                            //   ),
-                                            // ),
-                                            // Text(
-                                            //   "Phone Number: $phoneNumber",
-                                            //   style: TextStyle(
-                                            //     color: Colors.white,
-                                            //     fontSize: 16.0,
-                                            //   ),
-                                            // ),
                                           ],
                                         ),
-                                        const Icon(Icons.manage_accounts),
+                                        const Icon(
+                                          Icons.more_vert,
+                                          color: Colors.white,
+                                        ),
                                       ],
                                     ),
                                   ),

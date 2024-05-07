@@ -1,9 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/components/button.dart';
 import 'package:flutter_application_1/components/function_button.dart';
-import 'package:flutter_application_1/components/textformfield.dart';
-import 'package:flutter_application_1/services/firestore.dart';
 
 class AddUserPopUp extends StatefulWidget {
   const AddUserPopUp({super.key});

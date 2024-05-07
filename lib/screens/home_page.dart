@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/addItemPopUp.dart';
@@ -110,10 +109,6 @@ class HomePage extends StatelessWidget {
                                   text: 'User List',
                                   icondata: Icons.list_alt,
                                 ),
-                                const SizedBox(
-                                  width: 10.0,
-                                ),
-                                const AddUserPopUp(),
                               ],
                             ),
                           )
@@ -148,13 +143,6 @@ class HomePage extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  const AddItemPopUp(),
-                                  const SizedBox(width: 10.0),
-                                  const FunctionButton(
-                                    text: 'Check-out Items',
-                                    icondata: Icons.shopping_cart,
-                                  ),
-                                  const SizedBox(width: 10.0),
                                   FunctionButton(
                                     onTap: () {
                                       Navigator.of(context).push(
@@ -164,17 +152,17 @@ class HomePage extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                    text: 'View/Edit/Delete',
+                                    text: 'Item List',
                                     icondata: Icons.edit_document,
                                   ),
                                   const SizedBox(width: 10.0),
                                   const FunctionButton(
-                                    text: 'Daily Reports',
-                                    icondata: Icons.note,
+                                    text: 'Check-out Items',
+                                    icondata: Icons.shopping_cart,
                                   ),
                                   const SizedBox(width: 10.0),
                                   const FunctionButton(
-                                    text: 'Other Reports',
+                                    text: 'Inventory Report',
                                     icondata: Icons.book,
                                   ),
                                 ],
