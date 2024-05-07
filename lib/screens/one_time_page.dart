@@ -42,7 +42,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       topLeft: Radius.circular(50.0),
                       topRight: Radius.circular(50.0),
                     ),
-                    color: Color(0xFFEAAC4F)),
+                    color: Color(0x9FA16B19)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

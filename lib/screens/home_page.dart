@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/components/addItemPopUp.dart';
-import 'package:flutter_application_1/components/addUserPopUp.dart';
 import 'package:flutter_application_1/components/function_button.dart';
+import 'package:flutter_application_1/screens/checkoutitem_nonperishables_page.dart';
+import 'package:flutter_application_1/screens/checkoutitem_perishables_page.dart';
+import 'package:flutter_application_1/screens/product_wastage_page.dart';
 import 'package:flutter_application_1/screens/showItems.dart';
 import 'package:flutter_application_1/screens/userList_page.dart';
 
@@ -10,8 +11,6 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final user = FirebaseAuth.instance.currentUser!;
-  // final db = FirebaseFirestore.instance;
-  // final auth = FirebaseAuth.instance;
 
   void _logOut() async {
     await FirebaseAuth.instance.signOut();
@@ -156,7 +155,15 @@ class HomePage extends StatelessWidget {
                                     icondata: Icons.edit_document,
                                   ),
                                   const SizedBox(width: 10.0),
-                                  const FunctionButton(
+                                  FunctionButton(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ProductWastagePage(),
+                                        ),
+                                      );
+                                    },
                                     text: 'Check-out Items',
                                     icondata: Icons.shopping_cart,
                                   ),

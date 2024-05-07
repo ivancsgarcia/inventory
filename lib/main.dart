@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/screens/checkoutitem_perishables_page.dart';
 import 'package:flutter_application_1/screens/one_time_page.dart';
+import 'package:flutter_application_1/screens/product_wastage_page.dart';
 import 'package:flutter_application_1/screens/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -23,8 +24,8 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'iTrack',
-      // home: SplashScreen(),
-      home: CheckOutItemPerishablesPage(),
+      home: SplashScreen(),
+      // home: ProductWastagePage(),
     );
   }
 }

@@ -12,36 +12,55 @@ class CheckOutItemPerishablesPage extends StatefulWidget {
 
 class _CheckOutItemPerishablesPageState
     extends State<CheckOutItemPerishablesPage> {
-  late DateTime datel;
+  DateTime now = DateTime.now();
+  late DateTime date = DateTime(now.year, now.month, now.day);
   final CrudMethods crudMethods = CrudMethods();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0x70A16B19),
         centerTitle: true,
         title: const Text('CHECK OUT ITEM'),
       ),
       body: SafeArea(
         child: Container(
           height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('lib/assets/images/show-bg.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Column(
             children: [
-              DropdownButton<DateTime>(
-                  hint: const Text('Choose A Date'),
-                  items: ['Choose A Date']
-                      .map((e) => DropdownMenuItem<DateTime>(child: Text(e)))
-                      .toList(),
-                  onChanged: (value) {
-                    showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2024),
-                            lastDate: DateTime(2026))
-                        .then((date) => setState(() {
-                              datel = date!;
-                            }));
-                  }),
+              // DropdownButton<DateTime>(
+              //     hint: const Text('Choose A Date'),
+              //     items: ['Choose A Date']
+              //         .map((e) => DropdownMenuItem<DateTime>(child: Text(e)))
+              //         .toList(),
+              //     onChanged: (value) {
+              //       showDatePicker(
+              //               context: context,
+              //               initialDate: DateTime.now(),
+              //               firstDate: DateTime(2024),
+              //               lastDate: DateTime(2026))
+              //           .then((date) => setState(() {
+              //                 datel = date!;
+              //               }));
+              //     }),
+              const SizedBox(height: 10.0),
+              Container(
+                child: Text(
+                  '$date',
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10.0),
               Flexible(
                 child: StreamBuilder(
                   stream: crudMethods.getItems(),
@@ -76,7 +95,7 @@ class _CheckOutItemPerishablesPageState
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15.0),
-                                  color: const Color(0xF17C5C2D),
+                                  color: const Color(0x75A16B19),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -122,30 +141,36 @@ class _CheckOutItemPerishablesPageState
                                                         fontSize: 16.0,
                                                         fontStyle:
                                                             FontStyle.italic,
-                                                        color: Colors.white),
+                                                        color: Colors.black),
                                                   ),
-                                                  SizedBox(width: 5.0),
-                                                  Container(
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            width: 1.0),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(180)),
-                                                    child: const Text(
-                                                      "-",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                        fontSize: 16.0,
-                                                        fontStyle:
-                                                            FontStyle.italic,
-                                                        color: Colors.white,
+                                                  const SizedBox(width: 5.0),
+                                                  GestureDetector(
+                                                    onTap: () {},
+                                                    child: Container(
+                                                      width: 20,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      180)),
+                                                      child: const Text(
+                                                        "-",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 16.0,
+                                                          // fontStyle:
+                                                          //     FontStyle.italic,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                  SizedBox(width: 5.0),
+                                                  const SizedBox(width: 5.0),
                                                   Container(
                                                       height: 30,
                                                       width: 40,
@@ -153,43 +178,185 @@ class _CheckOutItemPerishablesPageState
                                                           color: Colors.white,
                                                           border: Border.all(
                                                               width: 1.0)),
-                                                      child: TextField()),
-                                                  SizedBox(width: 5.0),
-                                                  Container(
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            width: 1.0),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(180)),
-                                                    child: const Text(
-                                                      "+",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                        fontSize: 16.0,
-                                                        fontStyle:
-                                                            FontStyle.italic,
-                                                        color: Colors.white,
+                                                      child: const TextField()),
+                                                  const SizedBox(width: 5.0),
+                                                  GestureDetector(
+                                                    onTap: () {},
+                                                    child: Container(
+                                                      width: 20,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      180)),
+                                                      child: const Text(
+                                                        "+",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 16.0,
+                                                          // fontStyle:
+                                                          //     FontStyle.italic,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                              const Text(
-                                                "Damage:",
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Colors.white),
+                                              Row(
+                                                children: [
+                                                  const Text(
+                                                    "Damage:",
+                                                    style: TextStyle(
+                                                        fontSize: 16.0,
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        color: Colors.black),
+                                                  ),
+                                                  const SizedBox(width: 5.0),
+                                                  GestureDetector(
+                                                    onTap: () {},
+                                                    child: Container(
+                                                      width: 20,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      180)),
+                                                      child: const Text(
+                                                        "-",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 16.0,
+                                                          // fontStyle:
+                                                          //     FontStyle.italic,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 5.0),
+                                                  Container(
+                                                      height: 30,
+                                                      width: 40,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          border: Border.all(
+                                                              width: 1.0)),
+                                                      child: const TextField()),
+                                                  const SizedBox(width: 5.0),
+                                                  GestureDetector(
+                                                    onTap: () {},
+                                                    child: Container(
+                                                      width: 20,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      180)),
+                                                      child: const Text(
+                                                        "+",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 16.0,
+                                                          // fontStyle:
+                                                          //     FontStyle.italic,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              const Text(
-                                                "Expired:",
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Colors.white),
+                                              Row(
+                                                children: [
+                                                  const Text(
+                                                    "Expired:",
+                                                    style: TextStyle(
+                                                        fontSize: 16.0,
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        color: Colors.black),
+                                                  ),
+                                                  const SizedBox(width: 5.0),
+                                                  GestureDetector(
+                                                    onTap: () {},
+                                                    child: Container(
+                                                      width: 20,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      180)),
+                                                      child: const Text(
+                                                        "-",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 16.0,
+                                                          // fontStyle:
+                                                          //     FontStyle.italic,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 5.0),
+                                                  Container(
+                                                      height: 30,
+                                                      width: 40,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          border: Border.all(
+                                                              width: 1.0)),
+                                                      child: const TextField()),
+                                                  const SizedBox(width: 5.0),
+                                                  GestureDetector(
+                                                    onTap: () {},
+                                                    child: Container(
+                                                      width: 20,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      180)),
+                                                      child: const Text(
+                                                        "+",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 16.0,
+                                                          // fontStyle:
+                                                          //     FontStyle.italic,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
@@ -207,6 +374,19 @@ class _CheckOutItemPerishablesPageState
                   },
                 ),
               ),
+              const SizedBox(height: 10.0),
+              ElevatedButton(
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.red),
+                  minimumSize: MaterialStatePropertyAll(Size(200, 50)),
+                ),
+                onPressed: () {},
+                child: const Text(
+                  'Save',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 10.0),
             ],
           ),
         ),

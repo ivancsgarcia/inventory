@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/services/firestore.dart';
 
 import '../components/button.dart';
@@ -172,67 +173,67 @@ class _UserListPageState extends State<UserListPage> {
         ),
       ),
       appBar: AppBar(
+        backgroundColor: const Color(0x70A16B19),
         centerTitle: true,
         title: const Text('USER LIST'),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('lib/assets/images/show-bg.png'),
-                fit: BoxFit.cover,
-              ),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('lib/assets/images/show-bg.png'),
+              fit: BoxFit.cover,
             ),
-            child: Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SearchBar(
-                    backgroundColor:
-                        MaterialStatePropertyAll(Color(0xFFE6CCA5)),
-                    side: MaterialStatePropertyAll(
-                        BorderSide(color: Color(0x9F7C5C2D))),
-                    leading: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.search,
-                        size: 30.0,
-                      ),
+          ),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: SearchBar(
+                  backgroundColor: MaterialStatePropertyAll(Color(0xFFE6CCA5)),
+                  side: MaterialStatePropertyAll(
+                      BorderSide(color: Color(0x9F7C5C2D))),
+                  leading: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.search,
+                      size: 30.0,
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  child: StreamBuilder(
-                    stream: getEmployeeDetails(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else if (snapshot.hasData) {
-                        List employeeList = snapshot.data!.docs;
+              ),
+              Expanded(
+                child: StreamBuilder(
+                  stream: getEmployeeDetails(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (snapshot.hasData) {
+                      List employeeList = snapshot.data!.docs;
 
-                        return ListView.builder(
-                            itemCount: employeeList.length,
-                            itemBuilder: (context, index) {
-                              DocumentSnapshot document = employeeList[index];
-                              String docID = document.id;
+                      return ListView.builder(
+                          itemCount: employeeList.length,
+                          itemBuilder: (context, index) {
+                            DocumentSnapshot document = employeeList[index];
+                            String docID = document.id;
 
-                              Map<String, dynamic> data =
-                                  document.data() as Map<String, dynamic>;
-                              String firstName = data['firstName'];
-                              String lastName = data['lastName'];
-                              // String email = data['email'];
-                              // String phoneNumber = data['phoneNumber'];
+                            Map<String, dynamic> data =
+                                document.data() as Map<String, dynamic>;
+                            String firstName = data['firstName'];
+                            String lastName = data['lastName'];
+                            // String email = data['email'];
+                            // String phoneNumber = data['phoneNumber'];
 
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 6),
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 6),
+                              child: GestureDetector(
+                                onTap: () {},
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15.0),
@@ -266,16 +267,16 @@ class _UserListPageState extends State<UserListPage> {
                                     ),
                                   ),
                                 ),
-                              );
-                            });
-                      } else {
-                        return const Text("No data...");
-                      }
-                    },
-                  ),
+                              ),
+                            );
+                          });
+                    } else {
+                      return const Text("No data...");
+                    }
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
