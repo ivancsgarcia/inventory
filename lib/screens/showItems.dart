@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/services/firestore.dart';
+import 'package:image_picker/image_picker.dart';
 import '../components/button.dart';
 import '../components/textformfield.dart';
 
@@ -20,6 +23,8 @@ class _ShowItemsState extends State<ShowItems> {
   final _skuController = TextEditingController();
 
   final CrudMethods crudMethods = CrudMethods();
+  final ImagePicker picker = ImagePicker();
+  File? _selectedImage;
 
   @override
   void dispose() {
@@ -30,6 +35,15 @@ class _ShowItemsState extends State<ShowItems> {
     _quantityController.dispose();
     _skuController.dispose();
     super.dispose();
+  }
+
+  Future _pickImageFromGallery() async {
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image == null) return;
+    setState(() {
+      _selectedImage = File(image!.path);
+    });
   }
 
   void addItemPopUp() {
@@ -85,6 +99,27 @@ class _ShowItemsState extends State<ShowItems> {
                         icondata: Icons.sell,
                         labelText: 'Selling Price',
                       ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.blue),
+                          minimumSize: MaterialStatePropertyAll(Size(200, 60)),
+                        ),
+                        onPressed: () {
+                          _pickImageFromGallery();
+                        },
+                        child: const Text(
+                          'Pick Image From Gallery',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20.0),
+                      _selectedImage != null
+                          ? Image.file(_selectedImage!)
+                          : const Text('Please Select an Image'),
                       const SizedBox(height: 30.0),
                       MyButton(
                           onPressed: () {

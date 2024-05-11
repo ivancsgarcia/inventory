@@ -36,8 +36,9 @@ class SettingsPage extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: ElevatedButton(
                   style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.red),
-                      minimumSize: MaterialStatePropertyAll(Size(200, 60))),
+                    backgroundColor: MaterialStatePropertyAll(Colors.red),
+                    minimumSize: MaterialStatePropertyAll(Size(200, 60)),
+                  ),
                   onPressed: _logOut,
                   child: const Text(
                     'Sign Out',

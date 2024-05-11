@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/button.dart';
 import 'package:flutter_application_1/components/function_button.dart';
 import 'package:flutter_application_1/components/textformfield.dart';
 import 'package:flutter_application_1/services/firestore.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddItemPopUp extends StatefulWidget {
   const AddItemPopUp({
