@@ -1,20 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/function_button.dart';
 import 'package:flutter_application_1/screens/checkoutitem_nonperishables_page.dart';
-import 'package:flutter_application_1/screens/checkoutitem_perishables_page.dart';
+import 'package:flutter_application_1/screens/inventory_report_page.dart';
+import 'package:flutter_application_1/screens/notification_page.dart';
 import 'package:flutter_application_1/screens/product_wastage_page.dart';
+import 'package:flutter_application_1/screens/profile_page.dart';
+import 'package:flutter_application_1/screens/settings_page.dart';
 import 'package:flutter_application_1/screens/showItems.dart';
 import 'package:flutter_application_1/screens/userList_page.dart';
+import 'package:flutter_application_1/services/firestore.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final user = FirebaseAuth.instance.currentUser!;
-
-  void _logOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,24 +23,59 @@ class HomePage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ProfilePage(),
+                ),
+              );
+            },
             icon: const Icon(
               Icons.account_circle,
               size: 30.0,
             )),
-        title: Text(
-          user.email!,
-          style: const TextStyle(),
+        title: StreamBuilder<DocumentSnapshot>(
+          stream: getUserName(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                  child:
+                      CircularProgressIndicator()); // or any loading indicator
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else if (snapshot.hasData) {
+              var data = snapshot.data?.data() as Map<String, dynamic>;
+              return Text('${data['firstName']} ${data['lastName']}');
+            } else {
+              return const Text('Document does not exist');
+            }
+          },
         ),
+        // title: Text(
+        //   user.email!,
+        //   style: const TextStyle(),
+        // ),
         actions: [
           IconButton(
-              onPressed: _logOut,
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsPage(),
+                  ),
+                );
+              },
               icon: const Icon(
                 Icons.settings,
                 size: 30.0,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const NotificationPage(),
+                  ),
+                );
+              },
               icon: const Icon(
                 Icons.notifications,
                 size: 30.0,
@@ -160,7 +196,7 @@ class HomePage extends StatelessWidget {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const ProductWastagePage(),
+                                              const CheckOutItemNonPerishablesPage(),
                                         ),
                                       );
                                     },
@@ -168,7 +204,15 @@ class HomePage extends StatelessWidget {
                                     icondata: Icons.shopping_cart,
                                   ),
                                   const SizedBox(width: 10.0),
-                                  const FunctionButton(
+                                  FunctionButton(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const InventoryReportPage(),
+                                        ),
+                                      );
+                                    },
                                     text: 'Inventory Report',
                                     icondata: Icons.book,
                                   ),
@@ -226,23 +270,32 @@ class HomePage extends StatelessWidget {
       ),
 
       // Bottom Navigation Bar
-      bottomNavigationBar: const BottomAppBar(
-        color: Color(0xFF9D7A46),
+      bottomNavigationBar: BottomAppBar(
+        color: const Color(0xFF9D7A46),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Icon(
+            const Icon(
               Icons.home,
               size: 40.0,
+              color: Colors.white,
             ),
-            Icon(
+            const Icon(
               Icons.qr_code,
               size: 40.0,
+              color: Colors.blueGrey,
             ),
-            Icon(
-              // Icons.delete_outline,
-              Icons.search_rounded,
-              size: 40.0,
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ProductWastagePage(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.delete),
+              iconSize: 40.0,
+              color: Colors.blueGrey,
             ),
           ],
         ),

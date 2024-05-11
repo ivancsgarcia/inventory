@@ -30,5 +30,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
-// Image.asset('assets/images/itrack_logo.png')

@@ -50,12 +50,8 @@ Future addEmployeeDetails(
   });
 }
 
-Future getUserName() async {
-  await db.collection("users").doc(user?.uid).get().then((documentSnapshot) {
-    Text(documentSnapshot.get("firstName") +
-        ' ' +
-        documentSnapshot.get('lastName'));
-  });
+getUserName() {
+  return db.collection('users').doc(user?.uid).snapshots();
 }
 
 // Fetch user details
@@ -88,7 +84,6 @@ class CrudMethods {
       'quantity': quantity,
       'cost': cost,
       'sellingPrice': sellingPrice,
-
     });
   }
 
@@ -106,7 +101,6 @@ class CrudMethods {
     String newSellingPrice,
     String newQuantity,
     String newSKU,
-    
   ) {
     return dbItems.doc(docID).update({
       'sku': newSKU,
