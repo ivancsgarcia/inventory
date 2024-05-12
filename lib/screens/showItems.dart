@@ -1,165 +1,16 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/services/firestore.dart';
-import 'package:image_picker/image_picker.dart';
-import '../components/button.dart';
-import '../components/textformfield.dart';
 
-class ShowItems extends StatefulWidget {
-  const ShowItems({super.key});
+class ShowItemsPage extends StatefulWidget {
+  const ShowItemsPage({super.key});
 
   @override
-  State<ShowItems> createState() => _ShowItemsState();
+  State<ShowItemsPage> createState() => _ShowItemsPageState();
 }
 
-class _ShowItemsState extends State<ShowItems> {
-  final _categoryController = TextEditingController();
-  final _productNameController = TextEditingController();
-  final _costController = TextEditingController();
-  final _sellingPriceController = TextEditingController();
-  final _quantityController = TextEditingController();
-  final _skuController = TextEditingController();
-
+class _ShowItemsPageState extends State<ShowItemsPage> {
   final CrudMethods crudMethods = CrudMethods();
-  final ImagePicker picker = ImagePicker();
-  File? _selectedImage;
-
-  @override
-  void dispose() {
-    _categoryController.dispose();
-    _productNameController.dispose();
-    _costController.dispose();
-    _sellingPriceController.dispose();
-    _quantityController.dispose();
-    _skuController.dispose();
-    super.dispose();
-  }
-
-  Future _pickImageFromGallery() async {
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
-    if (image == null) return;
-    setState(() {
-      _selectedImage = File(image!.path);
-    });
-  }
-
-  void addItemPopUp() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text(
-            "Add Item",
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          content: SingleChildScrollView(
-            child: SizedBox(
-              child: Column(
-                children: [
-                  Form(
-                      child: Column(
-                    children: [
-                      MyTextFormField(
-                        controller: _skuController,
-                        icondata: Icons.code,
-                        labelText: 'SKU',
-                      ),
-                      MyTextFormField(
-                        controller: _categoryController,
-                        icondata: Icons.abc_sharp,
-                        labelText: 'Category',
-                      ),
-                      const SizedBox(height: 10),
-                      MyTextFormField(
-                        controller: _productNameController,
-                        icondata: Icons.abc_sharp,
-                        labelText: 'Product Name',
-                      ),
-                      MyTextFormField(
-                        controller: _quantityController,
-                        icondata: Icons.numbers,
-                        labelText: 'Quantity',
-                      ),
-                      const SizedBox(height: 10),
-                      MyTextFormField(
-                        controller: _costController,
-                        icondata: Icons.sell,
-                        labelText: 'Cost',
-                      ),
-                      const SizedBox(height: 10),
-                      MyTextFormField(
-                        controller: _sellingPriceController,
-                        icondata: Icons.sell,
-                        labelText: 'Selling Price',
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        style: const ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.blue),
-                          minimumSize: MaterialStatePropertyAll(Size(200, 60)),
-                        ),
-                        onPressed: () {
-                          _pickImageFromGallery();
-                        },
-                        child: const Text(
-                          'Pick Image From Gallery',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20.0),
-                      _selectedImage != null
-                          ? Image.file(_selectedImage!)
-                          : const Text('Please Select an Image'),
-                      const SizedBox(height: 30.0),
-                      MyButton(
-                          onPressed: () {
-                            crudMethods.addItem(
-                                _categoryController.text,
-                                _productNameController.text,
-                                _costController.text,
-                                _sellingPriceController.text,
-                                _skuController.text,
-                                _quantityController.text);
-
-                            _categoryController.clear();
-                            _productNameController.clear();
-                            _costController.clear();
-                            _sellingPriceController.clear();
-                            _skuController.clear();
-                            _quantityController.clear();
-                          },
-                          text: "Add Item",
-                          bgcolor: const Color(0xFF363030),
-                          textColor: Colors.white),
-                      const SizedBox(height: 15.0),
-                      MyButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        text: 'Cancel',
-                        bgcolor: Colors.red,
-                        textColor: Colors.white,
-                      ),
-                    ],
-                  )),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,15 +19,6 @@ class _ShowItemsState extends State<ShowItems> {
         backgroundColor: const Color(0x70A16B19),
         centerTitle: true,
         title: const Text('ITEM LIST'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFF7A5B2D),
-        // backgroundColor: Colors.white,
-        onPressed: addItemPopUp,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
       ),
       body: SafeArea(
         child: Container(

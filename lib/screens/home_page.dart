@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/components/function_button.dart';
+import 'package:flutter_application_1/screens/add_item_page.dart';
 import 'package:flutter_application_1/screens/checkoutitem_nonperishables_page.dart';
 import 'package:flutter_application_1/screens/inventory_report_page.dart';
 import 'package:flutter_application_1/screens/notification_page.dart';
@@ -12,9 +15,14 @@ import 'package:flutter_application_1/screens/showItems.dart';
 import 'package:flutter_application_1/screens/userList_page.dart';
 import 'package:flutter_application_1/services/firestore.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
 
   @override
@@ -51,10 +59,6 @@ class HomePage extends StatelessWidget {
             }
           },
         ),
-        // title: Text(
-        //   user.email!,
-        //   style: const TextStyle(),
-        // ),
         actions: [
           IconButton(
               onPressed: () {
@@ -183,11 +187,11 @@ class HomePage extends StatelessWidget {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const ShowItems(),
+                                              const AddItemPage(),
                                         ),
                                       );
                                     },
-                                    text: 'Item List',
+                                    text: 'Add Item',
                                     icondata: Icons.edit_document,
                                   ),
                                   const SizedBox(width: 10.0),
@@ -228,37 +232,54 @@ class HomePage extends StatelessWidget {
                     ),
 
                     // Invetory Container
-                    Container(
-                      width: 360.0,
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: const Color(0xFF5E3A04),
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.question_mark,
-                            size: 40.0,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ShowItemsPage(),
                           ),
-                          Text(
-                            'INVENTORY',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 4,
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black,
-                                    offset: Offset(4, 2),
-                                    blurRadius: 3.0,
-                                  )
-                                ]),
-                          ),
-                        ],
+                        );
+                      },
+                      child: Container(
+                        width: 360.0,
+                        height: 80.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: const Color(0xFF5E3A04),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.list_alt,
+                              size: 40.0,
+                              color: Colors.white,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.black,
+                                  offset: Offset(4, 2),
+                                  blurRadius: 3.0,
+                                )
+                              ],
+                            ),
+                            Text(
+                              'INVENTORY',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 4,
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.black,
+                                      offset: Offset(4, 2),
+                                      blurRadius: 3.0,
+                                    )
+                                  ]),
+                            ),
+                          ],
+                        ),
                       ),
                     )
                   ],
