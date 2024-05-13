@@ -5,13 +5,11 @@ import 'package:flutter_application_1/components/federated_provider_list.dart';
 import 'package:flutter_application_1/components/intro.dart';
 import 'package:flutter_application_1/components/textformfield.dart';
 import 'package:flutter_application_1/screens/forgotPassword_page.dart';
+import 'package:flutter_application_1/screens/signup_page.dart';
 
 class SignInPage extends StatefulWidget {
-  final Function() onTap;
-
   const SignInPage({
     super.key,
-    required this.onTap,
   });
 
   @override
@@ -168,7 +166,13 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   GestureDetector(
-                      onTap: widget.onTap,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpPage()),
+                        );
+                      },
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(

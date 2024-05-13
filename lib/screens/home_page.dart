@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/components/function_button.dart';
 import 'package:flutter_application_1/screens/add_item_page.dart';
 import 'package:flutter_application_1/screens/checkoutitem_nonperishables_page.dart';
@@ -11,12 +9,12 @@ import 'package:flutter_application_1/screens/notification_page.dart';
 import 'package:flutter_application_1/screens/product_wastage_page.dart';
 import 'package:flutter_application_1/screens/profile_page.dart';
 import 'package:flutter_application_1/screens/settings_page.dart';
-import 'package:flutter_application_1/screens/showItems.dart';
-import 'package:flutter_application_1/screens/userList_page.dart';
+import 'package:flutter_application_1/screens/item_list_page.dart';
+import 'package:flutter_application_1/screens/user_list_page.dart';
 import 'package:flutter_application_1/services/firestore.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();

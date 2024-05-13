@@ -26,6 +26,23 @@ Future addUserDetails(String firstName, String lastName, String email) async {
   });
 }
 
+Future addBusinessDetails(
+    String businessType, String shelfLife, String segregatedBy) async {
+  final businessDetails = <String, dynamic>{
+    "businessType": businessType,
+    "shelfLife": shelfLife,
+    "segregatedBy": segregatedBy,
+  };
+
+  db
+      .collection("users")
+      .doc(auth.currentUser?.uid)
+      .update(businessDetails)
+      .then((documentSnapshot) {
+    print('Business Info added to the database.');
+  });
+}
+
 Future addEmployeeDetails(
     String firstName, String lastName, String email, String phoneNumber) async {
   final user = <String, dynamic>{

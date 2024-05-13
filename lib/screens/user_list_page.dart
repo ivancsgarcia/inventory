@@ -22,6 +22,8 @@ class _UserListPageState extends State<UserListPage> {
   final _confirmPasswordController = TextEditingController();
   final _phoneNumberController = TextEditingController();
 
+  var searchUserName = '';
+
   @override
   void dispose() {
     _firstNameController.dispose();
@@ -188,31 +190,50 @@ class _UserListPageState extends State<UserListPage> {
           ),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: SearchBar(
-                  backgroundColor: MaterialStatePropertyAll(Color(0xFFE6CCA5)),
-                  side: MaterialStatePropertyAll(
+                  onChanged: (value) {
+                    setState(() {
+                      searchUserName = value;
+                    });
+                  },
+                  backgroundColor:
+                      const MaterialStatePropertyAll(Color(0xFFE6CCA5)),
+                  side: const MaterialStatePropertyAll(
                       BorderSide(color: Color(0x9F7C5C2D))),
-                  leading: Padding(
+                  leading: const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Icon(
                       Icons.search,
                       size: 30.0,
                     ),
                   ),
+                  hintText: "Search For First Name",
+                  hintStyle: const MaterialStatePropertyAll(TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  )),
                 ),
               ),
               Expanded(
-                child: StreamBuilder(
-                  stream: getEmployeeDetails(),
+                child: StreamBuilder<QuerySnapshot>(
+                  // stream: getEmployeeDetails(),
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(user?.uid)
+                      .collection("employees")
+                      .orderBy('firstName')
+                      .startAt([searchUserName]).endAt(
+                          ["$searchUserName\uf8ff"]).snapshots(),
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
                     } else if (snapshot.hasData) {
                       List employeeList = snapshot.data!.docs;
 

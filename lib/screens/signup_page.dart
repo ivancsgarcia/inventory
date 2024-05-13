@@ -4,13 +4,12 @@ import 'package:flutter_application_1/components/button.dart';
 import 'package:flutter_application_1/components/federated_provider_list.dart';
 import 'package:flutter_application_1/components/intro.dart';
 import 'package:flutter_application_1/components/textformfield.dart';
+import 'package:flutter_application_1/screens/signIn_page.dart';
 import 'package:flutter_application_1/services/firestore.dart';
 
 class SignUpPage extends StatefulWidget {
-  final Function() onTap;
   const SignUpPage({
     super.key,
-    required this.onTap,
   });
 
   @override
@@ -182,7 +181,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: widget.onTap,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignInPage()),
+                            );
+                          },
                           child: const Text(
                             'Sign In',
                             style: TextStyle(
