@@ -67,10 +67,6 @@ Future addEmployeeDetails(
   });
 }
 
-getUserName() {
-  return db.collection('users').doc(user?.uid).snapshots();
-}
-
 // Fetch user details
 Stream<QuerySnapshot> getEmployeeDetails() {
   return db
@@ -87,13 +83,14 @@ class CrudMethods {
 
   // Create
   Future<void> addItem(
-    String category,
-    String productName,
-    String cost,
-    String sellingPrice,
-    String quantity,
-    String sku,
-  ) {
+      String category,
+      String productName,
+      String cost,
+      String sellingPrice,
+      int quantity,
+      String sku,
+      String markOutDate,
+      String imageURL) {
     return dbItems.add({
       'sku': sku,
       'category': category,
@@ -101,6 +98,8 @@ class CrudMethods {
       'quantity': quantity,
       'cost': cost,
       'sellingPrice': sellingPrice,
+      'markOutDate': markOutDate,
+      'ImageURL': imageURL,
     });
   }
 

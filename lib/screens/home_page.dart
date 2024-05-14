@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/function_button.dart';
@@ -11,7 +10,6 @@ import 'package:flutter_application_1/screens/profile_page.dart';
 import 'package:flutter_application_1/screens/settings_page.dart';
 import 'package:flutter_application_1/screens/item_list_page.dart';
 import 'package:flutter_application_1/screens/user_list_page.dart';
-import 'package:flutter_application_1/services/firestore.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -40,23 +38,7 @@ class _HomePageState extends State<HomePage> {
               Icons.account_circle,
               size: 30.0,
             )),
-        title: StreamBuilder<DocumentSnapshot>(
-          stream: getUserName(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                  child:
-                      CircularProgressIndicator()); // or any loading indicator
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else if (snapshot.hasData) {
-              var data = snapshot.data?.data() as Map<String, dynamic>;
-              return Text('${data['firstName']} ${data['lastName']}');
-            } else {
-              return const Text('Document does not exist');
-            }
-          },
-        ),
+        title: Text(user.email!),
         actions: [
           IconButton(
               onPressed: () {

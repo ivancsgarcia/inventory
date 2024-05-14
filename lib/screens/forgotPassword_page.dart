@@ -44,52 +44,76 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         backgroundColor: const Color(0xFFB69F84),
       ),
       body: SafeArea(
-          child: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('lib/assets/images/forgotpass-bg.png'),
-            fit: BoxFit.cover,
+        child: Container(
+          // height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('lib/assets/images/forgotpass-bg.png'),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 26.0),
-              child: Intro(
-                text: 'Forgot Password',
-                text2: 'Please enter your email.',
+          child: Center(
+              child: Container(
+            height: 350,
+            width: 360,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                width: 1.0,
+                color: Colors.black,
+              ),
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Intro(
+                    text: 'Forgot Password',
+                    text2: 'Please enter your email.',
+                  ),
+                  const SizedBox(height: 20.0),
+
+                  // Email Field
+                  TextFormField(
+                    controller: _emailController,
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                    ),
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.account_circle),
+                      labelText: 'Email',
+                      labelStyle: TextStyle(
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30.0),
+
+                  // Send Button
+                  ElevatedButton(
+                    onPressed: passwordReset,
+                    style: ButtonStyle(
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Colors.red),
+                        foregroundColor:
+                            const MaterialStatePropertyAll(Colors.white),
+                        minimumSize:
+                            const MaterialStatePropertyAll(Size(250, 60)),
+                        shape: MaterialStatePropertyAll(
+                            ContinuousRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)))),
+                    child: const Text('Submit'),
+                  )
+                ],
               ),
             ),
-            const SizedBox(height: 20.0),
-
-            // Email Field
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                MyTextFormField(
-                  controller: _emailController,
-                  labelText: 'Email',
-                  obscureText: false,
-                  icondata: Icons.account_circle,
-                ),
-              ],
-            ),
-            const SizedBox(height: 30.0),
-
-            // Send Button
-            Center(
-              child: MyButton(
-                  onPressed: passwordReset,
-                  text: 'Send',
-                  bgcolor: const Color(0xFF363030),
-                  textColor: Colors.white),
-            )
-          ],
+          )),
         ),
-      )),
+      ),
     );
   }
 }

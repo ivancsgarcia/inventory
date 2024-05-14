@@ -1,7 +1,5 @@
 import "package:cloud_firestore/cloud_firestore.dart";
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-import "package:flutter/widgets.dart";
 import "package:flutter_application_1/services/firestore.dart";
 
 class CheckOutItemNonPerishablesPage extends StatefulWidget {
@@ -17,6 +15,36 @@ class _CheckOutItemNonPerishablesPageState
   DateTime now = DateTime.now();
   late DateTime date = DateTime(now.year, now.month, now.day);
   final CrudMethods crudMethods = CrudMethods();
+  int itemSold = 0;
+  int itemDamage = 0;
+
+  void _incrementCounter(
+    String docID,
+    int currentCount,
+  ) async {
+    DocumentReference docRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .collection('items')
+        .doc(docID);
+
+    // Update the document with the incremented count
+    await docRef.update({'quantity': currentCount + 1});
+  }
+
+  void _decrementCounter(
+    String docID,
+    int currentCount,
+  ) async {
+    DocumentReference docRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .collection('items')
+        .doc(docID);
+
+    // Update the document with the incremented count
+    await docRef.update({'quantity': currentCount - 1});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,21 +65,6 @@ class _CheckOutItemNonPerishablesPageState
           ),
           child: Column(
             children: [
-              // DropdownButton<DateTime>(
-              //     hint: const Text('Choose A Date'),
-              //     items: ['Choose A Date']
-              //         .map((e) => DropdownMenuItem<DateTime>(child: Text(e)))
-              //         .toList(),
-              //     onChanged: (value) {
-              //       showDatePicker(
-              //               context: context,
-              //               initialDate: DateTime.now(),
-              //               firstDate: DateTime(2024),
-              //               lastDate: DateTime(2026))
-              //           .then((date) => setState(() {
-              //                 datel = date!;
-              //               }));
-              //     }),
               const SizedBox(height: 10.0),
               Container(
                 child: Text(
@@ -86,6 +99,7 @@ class _CheckOutItemNonPerishablesPageState
                               document.data() as Map<String, dynamic>;
                           String productName = data['productName'];
                           String sku = data['sellingPrice'];
+                          int quantityCounter = data['quantity'];
 
                           return Padding(
                             padding: const EdgeInsets.symmetric(
@@ -94,7 +108,7 @@ class _CheckOutItemNonPerishablesPageState
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15.0),
                                 // color: const Color(0xF17C5C2D),
-                                color: Color(0x75A16B19),
+                                color: const Color(0x75A16B19),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -148,7 +162,11 @@ class _CheckOutItemNonPerishablesPageState
                                                 ),
                                                 const SizedBox(width: 5.0),
                                                 GestureDetector(
-                                                  onTap: () {},
+                                                  onTap: () =>
+                                                      _decrementCounter(
+                                                    document.id,
+                                                    quantityCounter,
+                                                  ),
                                                   child: Container(
                                                     width: 20,
                                                     decoration: BoxDecoration(
@@ -180,10 +198,15 @@ class _CheckOutItemNonPerishablesPageState
                                                         color: Colors.white,
                                                         border: Border.all(
                                                             width: 1.0)),
-                                                    child: const TextField()),
+                                                    child: Text(
+                                                        itemSold.toString())),
                                                 const SizedBox(width: 5.0),
                                                 GestureDetector(
-                                                  onTap: () {},
+                                                  onTap: () =>
+                                                      _incrementCounter(
+                                                    document.id,
+                                                    quantityCounter,
+                                                  ),
                                                   child: Container(
                                                     width: 20,
                                                     decoration: BoxDecoration(
@@ -223,7 +246,11 @@ class _CheckOutItemNonPerishablesPageState
                                                 ),
                                                 const SizedBox(width: 5.0),
                                                 GestureDetector(
-                                                  onTap: () {},
+                                                  onTap: () =>
+                                                      _decrementCounter(
+                                                    document.id,
+                                                    quantityCounter,
+                                                  ),
                                                   child: Container(
                                                     width: 20,
                                                     decoration: BoxDecoration(
@@ -255,10 +282,15 @@ class _CheckOutItemNonPerishablesPageState
                                                         color: Colors.white,
                                                         border: Border.all(
                                                             width: 1.0)),
-                                                    child: const TextField()),
+                                                    child: Text(
+                                                        itemDamage.toString())),
                                                 const SizedBox(width: 5.0),
                                                 GestureDetector(
-                                                  onTap: () {},
+                                                  onTap: () =>
+                                                      _incrementCounter(
+                                                    document.id,
+                                                    quantityCounter,
+                                                  ),
                                                   child: Container(
                                                     width: 20,
                                                     decoration: BoxDecoration(

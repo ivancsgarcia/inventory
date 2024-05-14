@@ -1,5 +1,6 @@
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
+import "package:flutter_application_1/screens/auth_page.dart";
 import "package:flutter_application_1/screens/signIn_page.dart";
 
 class SettingsPage extends StatefulWidget {
@@ -13,10 +14,15 @@ class _SettingsPageState extends State<SettingsPage> {
   void _logOut() async {
     await FirebaseAuth.instance.signOut();
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const SignInPage()),
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const AuthPage()),
+      (Route<dynamic> route) => false,
     );
+
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => const SignInPage()),
+    // );
   }
 
   @override
