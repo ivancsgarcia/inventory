@@ -93,6 +93,7 @@ class _ShowItemsPageState extends State<ShowItemsPage> {
                             String sellingPrice = data['sellingPrice'];
                             String quantity = data['sellingPrice'];
                             String SKU = data['sellingPrice'];
+                            String imageURL = data['imageURL'];
 
                             return Padding(
                               padding: const EdgeInsets.symmetric(
@@ -110,11 +111,12 @@ class _ShowItemsPageState extends State<ShowItemsPage> {
                                     children: [
                                       Expanded(
                                         child: Container(
-                                          child: Image.asset(
-                                            'lib/assets/images/itrack_logo.png',
+                                          child: Image.network(
+                                            imageURL,
                                           ),
                                         ),
                                       ),
+                                      SizedBox(width: 5.0),
                                       Expanded(
                                         child: Container(
                                           child: Column(

@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/button.dart';
@@ -39,20 +41,52 @@ class _AddItemPageState extends State<AddItemPage> {
     super.dispose();
   }
 
-  Future<void> uploadImageToFirebaseStorage(File imageFile) async {
+  Future<void> uploadItem() async {
     try {
-      FirebaseStorage fbstore = FirebaseStorage.instance;
-
-      Reference ref = fbstore
+      Reference storageRef = FirebaseStorage.instance
           .ref()
-          .child('product_images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+          .child('product_images/${DateTime.now().millisecondsSinceEpoch}');
+      UploadTask uploadTask = storageRef.putFile(_selectedImage!);
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String downloadURL = await taskSnapshot.ref.getDownloadURL();
 
-      await ref.putFile(imageFile);
-      String downloadURL = await ref.getDownloadURL();
-      return downloadURL;
+// Add item details to Firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('items')
+          .add({
+        'created_at': Timestamp.now(),
+        'sku': _skuController.text,
+        'category': _categoryController.text,
+        'productName': _productNameController.text,
+        'quantity': int.parse(_quantityController.text),
+        'cost': _costController.text,
+        'sellingPrice': _sellingPriceController.text,
+        'markOutDate': _markOutDateController.text,
+        'imageURL': downloadURL,
+      });
+
+      // Clear the form
+      setState(() {
+        _skuController.clear();
+        _categoryController.clear();
+        _productNameController.clear();
+        _quantityController.clear();
+        _costController.clear();
+        _sellingPriceController.clear();
+        _markOutDateController.clear();
+        _selectedImage = null;
+      });
+
+      // Show success message
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Item added successfully')));
     } catch (e) {
+      // Handle errors
       print(e);
-      return null;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Failed to add item')));
     }
   }
 
@@ -352,24 +386,7 @@ class _AddItemPageState extends State<AddItemPage> {
                     const SizedBox(height: 30.0),
                     MyButton(
                         onPressed: () {
-                          crudMethods.addItem(
-                            _categoryController.text,
-                            _productNameController.text,
-                            _costController.text,
-                            _sellingPriceController.text,
-                            int.parse(_skuController.text),
-                            _quantityController.text,
-                            _markOutDateController.text,
-                            _imageURL,
-                          );
-
-                          _categoryController.clear();
-                          _productNameController.clear();
-                          _costController.clear();
-                          _sellingPriceController.clear();
-                          _skuController.clear();
-                          _quantityController.clear();
-                          _markOutDateController.clear();
+                          uploadItem();
                         },
                         text: "Add Item",
                         bgcolor: const Color(0xFF363030),

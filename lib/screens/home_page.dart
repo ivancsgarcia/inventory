@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/components/function_button.dart';
 import 'package:flutter_application_1/screens/add_item_page.dart';
 import 'package:flutter_application_1/screens/checkoutitem_nonperishables_page.dart';
@@ -20,6 +22,58 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
+  late String businessName = '';
+
+  void _updateBusinessName(String newName) {
+    setState(() {
+      businessName = newName;
+    });
+  }
+
+  void _showNameDialog() {
+    final _businessNameController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Enter Business Name"),
+          content: TextField(
+            controller: _businessNameController,
+            decoration: InputDecoration(hintText: "Business Name"),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                _updateBusinessName(_businessNameController.text);
+
+                final nameOfBusiness = <String, dynamic>{
+                  "businessName": _businessNameController.text,
+                };
+
+                FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(FirebaseAuth.instance.currentUser?.uid)
+                    .update(nameOfBusiness)
+                    .then((documentSnapshot) {
+                  print('Business Info added to the database.');
+                });
+
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,17 +129,27 @@ class _HomePageState extends State<HomePage> {
               child: Center(
                 child: Column(
                   children: [
-                    // Address Container
-                    Container(
-                      width: 360.0,
-                      height: 120.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: const Color(0x70A16B19),
-                      ),
-                      child: const Icon(
-                        Icons.place,
-                        size: 40.0,
+                    // Business Name Container
+                    GestureDetector(
+                      onTap: () {
+                        _showNameDialog();
+                      },
+                      child: Container(
+                        width: 360.0,
+                        height: 120.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: const Color(0x70A16B19),
+                        ),
+                        child: Column(
+                          children: [
+                            const Icon(
+                              Icons.place,
+                              size: 40.0,
+                            ),
+                            Text(businessName),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20.0),

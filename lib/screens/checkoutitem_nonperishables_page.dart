@@ -99,7 +99,7 @@ class _CheckOutItemNonPerishablesPageState
                               document.data() as Map<String, dynamic>;
                           String productName = data['productName'];
                           String sku = data['sellingPrice'];
-                          int quantityCounter = data['quantity'];
+                          int quantityCounter = data['quantity']!;
 
                           return Padding(
                             padding: const EdgeInsets.symmetric(
