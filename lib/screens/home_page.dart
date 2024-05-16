@@ -12,6 +12,7 @@ import 'package:flutter_application_1/screens/profile_page.dart';
 import 'package:flutter_application_1/screens/settings_page.dart';
 import 'package:flutter_application_1/screens/item_list_page.dart';
 import 'package:flutter_application_1/screens/user_list_page.dart';
+import 'package:flutter_application_1/services/firestore.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,20 +38,20 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Enter Business Name"),
+          title: const Text("Enter Business Name"),
           content: TextField(
             controller: _businessNameController,
-            decoration: InputDecoration(hintText: "Business Name"),
+            decoration: const InputDecoration(hintText: "Business Name"),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text("OK"),
+              child: const Text("OK"),
               onPressed: () {
                 _updateBusinessName(_businessNameController.text);
 
@@ -73,6 +74,24 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  Future<String> getBusinessName() async {
+    User? user = auth.currentUser;
+    if (user != null) {
+      DocumentSnapshot data = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      if (data.exists) {
+        return data[
+            'businessName']; // Assumes the document has a field named 'business_name'
+      } else {
+        throw Exception("Document does not exist!");
+      }
+    } else {
+      throw Exception("User is not logged in!");
+    }
   }
 
   @override
@@ -120,213 +139,239 @@ class _HomePageState extends State<HomePage> {
               )),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SafeArea(
+      body: SafeArea(
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('lib/assets/images/show-bg.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: SingleChildScrollView(
-            child: SizedBox(
-              // height: MediaQuery.of(context).size.height,
-              child: Center(
-                child: Column(
-                  children: [
-                    // Business Name Container
-                    GestureDetector(
-                      onTap: () {
-                        _showNameDialog();
-                      },
-                      child: Container(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                // height: MediaQuery.of(context).size.height,
+                child: Center(
+                  child: Column(
+                    children: [
+                      // Business Name Container
+                      GestureDetector(
+                        onTap: () {
+                          _showNameDialog();
+                        },
+                        child: Container(
+                          width: 360.0,
+                          height: 120.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: const Color(0x70A16B19),
+                          ),
+                          child: Column(
+                            children: [
+                              const Icon(
+                                Icons.place,
+                                size: 40.0,
+                              ),
+                              FutureBuilder(
+                                future: getBusinessName(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<String> snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const CircularProgressIndicator();
+                                  } else if (snapshot.hasError) {
+                                    return Text('Error: ${snapshot.error}');
+                                  } else if (snapshot.hasData) {
+                                    return Text('${snapshot.data}');
+                                  } else {
+                                    return const Text(
+                                        'Enter Your Business Name');
+                                  }
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20.0),
+
+                      // User Management Container
+                      Container(
                         width: 360.0,
-                        height: 120.0,
+                        height: 200.0,
                         decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.8),
+                          border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(20.0),
-                          color: const Color(0x70A16B19),
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(
-                              Icons.place,
-                              size: 40.0,
-                            ),
-                            Text(businessName),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20.0),
-
-                    // User Management Container
-                    Container(
-                      width: 360.0,
-                      height: 200.0,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'USER MANAGEMENT',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FunctionButton(
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const UserListPage(),
-                                      ),
-                                    );
-                                  },
-                                  text: 'User List',
-                                  icondata: Icons.list_alt,
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'USER MANAGEMENT',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w400,
                                 ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 20.0),
-
-                    // Inventory Function Container
-                    Container(
-                      width: 360.0,
-                      height: 200.0,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'INVENTORY FUNCTION',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w400,
                               ),
                             ),
-                          ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Padding(
+                            Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   FunctionButton(
                                     onTap: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const AddItemPage(),
+                                              const UserListPage(),
                                         ),
                                       );
                                     },
-                                    text: 'Add Item',
-                                    icondata: Icons.edit_document,
-                                  ),
-                                  const SizedBox(width: 10.0),
-                                  FunctionButton(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const CheckOutItemNonPerishablesPage(),
-                                        ),
-                                      );
-                                    },
-                                    text: 'Check-out Items',
-                                    icondata: Icons.shopping_cart,
-                                  ),
-                                  const SizedBox(width: 10.0),
-                                  FunctionButton(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const InventoryReportPage(),
-                                        ),
-                                      );
-                                    },
-                                    text: 'Inventory Report',
-                                    icondata: Icons.book,
+                                    text: 'User List',
+                                    icondata: Icons.list_alt,
                                   ),
                                 ],
                               ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-
-                    // Invetory Container
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const ShowItemsPage(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: 360.0,
-                        height: 80.0,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(20.0),
-                          color: const Color(0xFF5E3A04),
-                        ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.list_alt,
-                              size: 40.0,
-                              color: Colors.white,
-                              shadows: [
-                                Shadow(
-                                  color: Colors.black,
-                                  offset: Offset(4, 2),
-                                  blurRadius: 3.0,
-                                )
-                              ],
-                            ),
-                            Text(
-                              'INVENTORY',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 4,
-                                  shadows: [
-                                    Shadow(
-                                      color: Colors.black,
-                                      offset: Offset(4, 2),
-                                      blurRadius: 3.0,
-                                    )
-                                  ]),
-                            ),
+                            )
                           ],
                         ),
                       ),
-                    )
-                  ],
+                      const SizedBox(height: 20.0),
+
+                      // Inventory Function Container
+                      Container(
+                        width: 360.0,
+                        height: 200.0,
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.8),
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'INVENTORY FUNCTION',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    FunctionButton(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const AddItemPage(),
+                                          ),
+                                        );
+                                      },
+                                      text: 'Add Item',
+                                      icondata: Icons.edit_document,
+                                    ),
+                                    const SizedBox(width: 10.0),
+                                    FunctionButton(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const CheckOutItemNonPerishablesPage(),
+                                          ),
+                                        );
+                                      },
+                                      text: 'Check-out Items',
+                                      icondata: Icons.shopping_cart,
+                                    ),
+                                    const SizedBox(width: 10.0),
+                                    FunctionButton(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const InventoryReportPage(),
+                                          ),
+                                        );
+                                      },
+                                      text: 'Inventory Report',
+                                      icondata: Icons.book,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+
+                      // Invetory Container
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const ShowItemsPage(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: 360.0,
+                          height: 80.0,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: const Color(0xFF5E3A04),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.list_alt,
+                                size: 40.0,
+                                color: Colors.white,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black,
+                                    offset: Offset(4, 2),
+                                    blurRadius: 3.0,
+                                  )
+                                ],
+                              ),
+                              Text(
+                                'INVENTORY',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 4,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black,
+                                        offset: Offset(4, 2),
+                                        blurRadius: 3.0,
+                                      )
+                                    ]),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -348,7 +393,7 @@ class _HomePageState extends State<HomePage> {
             const Icon(
               Icons.qr_code,
               size: 40.0,
-              color: Colors.blueGrey,
+              color: Colors.white,
             ),
             IconButton(
               onPressed: () {
@@ -360,7 +405,7 @@ class _HomePageState extends State<HomePage> {
               },
               icon: const Icon(Icons.delete),
               iconSize: 40.0,
-              color: Colors.blueGrey,
+              color: Colors.white,
             ),
           ],
         ),

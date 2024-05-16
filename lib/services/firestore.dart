@@ -71,7 +71,7 @@ Future addEmployeeDetails(
 Stream<QuerySnapshot> getEmployeeDetails() {
   return db
       .collection("users")
-      .doc(user?.uid)
+      .doc(auth.currentUser!.uid)
       .collection("employees")
       .snapshots();
 }

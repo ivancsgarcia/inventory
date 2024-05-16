@@ -63,7 +63,7 @@ class _ShowItemsPageState extends State<ShowItemsPage> {
                   // stream: crudMethods.getItems(),
                   stream: FirebaseFirestore.instance
                       .collection('users')
-                      .doc(user?.uid)
+                      .doc(auth.currentUser!.uid)
                       .collection("items")
                       .orderBy('productName')
                       .startAt([searchProductName]).endAt(
@@ -91,7 +91,7 @@ class _ShowItemsPageState extends State<ShowItemsPage> {
                             String productName = data['productName'];
                             String cost = data['cost'];
                             String sellingPrice = data['sellingPrice'];
-                            String quantity = data['sellingPrice'];
+                            int quantity = data['quantity']!;
                             String SKU = data['sellingPrice'];
                             String imageURL = data['imageURL'];
 

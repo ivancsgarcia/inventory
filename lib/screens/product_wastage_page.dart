@@ -32,6 +32,12 @@ class _ProductWastagePageState extends State<ProductWastagePage> {
         ),
         body: Container(
           height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('lib/assets/images/show-bg.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Column(
             children: [
               Padding(
@@ -90,7 +96,7 @@ class _ProductWastagePageState extends State<ProductWastagePage> {
                             Map<String, dynamic> data =
                                 document.data() as Map<String, dynamic>;
                             String productName = data['productName'];
-                            String quantity = data['sellingPrice'];
+                            int quantity = data['quantity'];
 
                             return Padding(
                               padding: const EdgeInsets.symmetric(
@@ -98,7 +104,7 @@ class _ProductWastagePageState extends State<ProductWastagePage> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15.0),
-                                  color: const Color(0x75A16B19),
+                                  color: const Color(0xF17C5C2D),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -125,28 +131,28 @@ class _ProductWastagePageState extends State<ProductWastagePage> {
                                                 productName,
                                                 style: const TextStyle(
                                                     fontSize: 22.0,
-                                                    color: Colors.black),
+                                                    color: Colors.white),
                                               ),
                                               Text(
                                                 "Quantity: $quantity",
                                                 style: const TextStyle(
                                                     fontSize: 16.0,
                                                     fontStyle: FontStyle.italic,
-                                                    color: Colors.black),
+                                                    color: Colors.white),
                                               ),
                                               const Text(
                                                 "Wastage Reason: ",
                                                 style: TextStyle(
                                                     fontSize: 16.0,
                                                     fontStyle: FontStyle.italic,
-                                                    color: Colors.black),
+                                                    color: Colors.white),
                                               ),
                                               const Text(
                                                 "Date: ",
                                                 style: TextStyle(
                                                     fontSize: 16.0,
                                                     fontStyle: FontStyle.italic,
-                                                    color: Colors.black),
+                                                    color: Colors.white),
                                               ),
                                             ],
                                           ),

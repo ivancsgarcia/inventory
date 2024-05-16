@@ -11,13 +11,21 @@ class NotificationPage extends StatelessWidget {
         centerTitle: true,
         title: const Text('NOTIFICATION'),
       ),
-      body: const SafeArea(
-        child: Center(
-          child: Text(
-            'Notification Page',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('lib/assets/images/show-bg.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: const Center(
+            child: Text(
+              'Notification Page',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

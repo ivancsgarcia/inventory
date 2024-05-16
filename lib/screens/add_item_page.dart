@@ -104,294 +104,303 @@ class _AddItemPageState extends State<AddItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0x70A16B19),
         centerTitle: true,
         title: const Text('ADD ITEM'),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              // height: MediaQuery.of(context).size.height,
-              // width: MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'SKU:',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              // fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: _skuController,
-                            style: const TextStyle(
-                              fontSize: 18.0,
-                            ),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  width: 1.0,
-                                  color: Colors.black,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'CATEGORY:',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              // fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: _categoryController,
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                            ),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  width: 1.0,
-                                  color: Colors.black,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'PRODUCT NAME:',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              // fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: _productNameController,
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                            ),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  width: 1.0,
-                                  color: Colors.black,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'QUANTITY:',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              // fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: _quantityController,
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                            ),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  width: 1.0,
-                                  color: Colors.black,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'COST:',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              // fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: _costController,
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                            ),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  width: 1.0,
-                                  color: Colors.black,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'SELLING PRICE:',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              // fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: _sellingPriceController,
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                            ),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  width: 1.0,
-                                  color: Colors.black,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 15.0),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'MARK OUT DATE:',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              // fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: _markOutDateController,
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                            ),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  width: 1.0,
-                                  color: Colors.black,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    SizedBox(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('lib/assets/images/show-bg.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                // height: MediaQuery.of(context).size.height,
+                // width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              children: [
-                                const Text(
-                                  'Insert Image:',
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    // fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 5.0),
-                                ElevatedButton(
-                                  style: const ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStatePropertyAll(Colors.blue),
-                                    minimumSize:
-                                        MaterialStatePropertyAll(Size(200, 60)),
-                                  ),
-                                  onPressed: () {
-                                    _pickImageFromGallery();
-                                  },
-                                  child: const Text(
-                                    'Pick Image From Gallery',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            const Text(
+                              'SKU:',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                // fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 20.0),
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 1.0,
-                                  color: Colors.black,
+                            TextFormField(
+                              controller: _skuController,
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                              ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    width: 1.0,
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
                               ),
-                              child: _selectedImage != null
-                                  ? Image.file(
-                                      _selectedImage!,
-                                      height: 200.0,
-                                      width: 200.0,
-                                    )
-                                  : const Text('Please Select an Image'),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 30.0),
-                    MyButton(
-                        onPressed: () {
-                          uploadItem();
-                        },
-                        text: "Add Item",
-                        bgcolor: const Color(0xFF363030),
-                        textColor: Colors.white),
-                  ],
+                      const SizedBox(height: 15),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'CATEGORY:',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextFormField(
+                              controller: _categoryController,
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                              ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    width: 1.0,
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'PRODUCT NAME:',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextFormField(
+                              controller: _productNameController,
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                              ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    width: 1.0,
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'QUANTITY:',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextFormField(
+                              controller: _quantityController,
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                              ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    width: 1.0,
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'COST:',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextFormField(
+                              controller: _costController,
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                              ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    width: 1.0,
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'SELLING PRICE:',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextFormField(
+                              controller: _sellingPriceController,
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                              ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    width: 1.0,
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 15.0),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'MARK OUT DATE:',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextFormField(
+                              controller: _markOutDateController,
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                              ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    width: 1.0,
+                                    color: Colors.black,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      SizedBox(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                children: [
+                                  const Text(
+                                    'Insert Image:',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      // fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5.0),
+                                  ElevatedButton(
+                                    style: const ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStatePropertyAll(Colors.blue),
+                                      minimumSize: MaterialStatePropertyAll(
+                                          Size(200, 60)),
+                                    ),
+                                    onPressed: () {
+                                      _pickImageFromGallery();
+                                    },
+                                    child: const Text(
+                                      'Pick Image From Gallery',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 20.0),
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1.0,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                child: _selectedImage != null
+                                    ? Image.file(
+                                        _selectedImage!,
+                                        height: 200.0,
+                                        width: 200.0,
+                                      )
+                                    : const Text('Please Select an Image'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 30.0),
+                      MyButton(
+                          onPressed: () {
+                            uploadItem();
+                          },
+                          text: "Add Item",
+                          bgcolor: const Color(0xFF363030),
+                          textColor: Colors.white),
+                    ],
+                  ),
                 ),
               ),
             ),

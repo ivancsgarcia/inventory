@@ -221,7 +221,7 @@ class _UserListPageState extends State<UserListPage> {
                   // stream: getEmployeeDetails(),
                   stream: FirebaseFirestore.instance
                       .collection('users')
-                      .doc(user?.uid)
+                      .doc(auth.currentUser!.uid)
                       .collection("employees")
                       .orderBy('firstName')
                       .startAt([searchUserName]).endAt(
