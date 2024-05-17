@@ -35,7 +35,8 @@ class _FirstPageState extends State<FirstPage> {
   }
 
   Future<void> _checkFirestoreAndNavigate() async {
-    DocumentReference docRef = firestore.collection('users').doc(user!.uid);
+    DocumentReference docRef =
+        firestore.collection('users').doc(auth.currentUser!.uid);
 
     try {
       DocumentSnapshot documentSnapshot = await docRef.get();
@@ -59,11 +60,6 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    // throw UnimplementedError();
     return const Scaffold();
   }
-
-  // ... (your navigation functions - navigateToOneTimePage, navigateToHomePage)
-  // ... (rest of your widget code)
 }
