@@ -306,35 +306,35 @@ class _AddItemPageState extends State<AddItemPage> {
                         ),
                       ),
                       const SizedBox(height: 15.0),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'MARK OUT DATE:',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                // fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            TextFormField(
-                              controller: _markOutDateController,
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                              ),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 1.0,
-                                    color: Colors.black,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   child: Column(
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //       const Text(
+                      //         'MARK OUT DATE:',
+                      //         style: TextStyle(
+                      //           fontSize: 18.0,
+                      //           // fontWeight: FontWeight.bold,
+                      //         ),
+                      //       ),
+                      //       TextFormField(
+                      //         controller: _markOutDateController,
+                      //         style: const TextStyle(
+                      //           fontSize: 16.0,
+                      //         ),
+                      //         decoration: InputDecoration(
+                      //           border: OutlineInputBorder(
+                      //             borderSide: const BorderSide(
+                      //               width: 1.0,
+                      //               color: Colors.black,
+                      //             ),
+                      //             borderRadius: BorderRadius.circular(12.0),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       const SizedBox(height: 30),
                       SizedBox(
                         child: SingleChildScrollView(

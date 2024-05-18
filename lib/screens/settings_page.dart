@@ -1,5 +1,6 @@
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
+import "package:flutter/widgets.dart";
 import "package:flutter_application_1/screens/auth_page.dart";
 import "package:flutter_application_1/screens/signIn_page.dart";
 
@@ -44,32 +45,207 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Settings Page',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 50.0),
               Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ElevatedButton(
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.red),
-                    minimumSize: MaterialStatePropertyAll(Size(200, 60)),
-                  ),
-                  onPressed: _logOut,
-                  child: const Text(
-                    'Sign Out',
-                    style: TextStyle(
-                      color: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Account',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 1.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: const Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(6.0),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.person),
+                                    SizedBox(width: 10.0),
+                                    Text('Profile'),
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(6.0),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.card_giftcard),
+                                    SizedBox(width: 10.0),
+                                    Text('Subscription'),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
-              )
+              ),
+              const SizedBox(height: 30.0),
+              SizedBox(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Security',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1.0),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: const Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(6.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.lock),
+                                  SizedBox(width: 10.0),
+                                  Text('Password'),
+                                ],
+                              ),
+                            ),
+                            Divider(
+                              color: Colors.black,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(6.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.fingerprint),
+                                  SizedBox(width: 10.0),
+                                  Text('Use Biometrics'),
+                                  // Icon(Icons.abc),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30.0),
+              SizedBox(
+                child: Column(
+                  children: [
+                    const Text(''),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1.0),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(6.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.language),
+                                  SizedBox(width: 10.0),
+                                  Text('Languages'),
+                                ],
+                              ),
+                            ),
+                            const Divider(
+                              color: Colors.black,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(6.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.notifications),
+                                  SizedBox(width: 10.0),
+                                  Text('Enable Notifications'),
+                                  // Icon(Icons.abc),
+                                ],
+                              ),
+                            ),
+                            const Divider(
+                              color: Colors.black,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(6.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.support),
+                                  SizedBox(width: 10.0),
+                                  Text('Support'),
+                                ],
+                              ),
+                            ),
+                            const Divider(
+                              color: Colors.black,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(6.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.help),
+                                  SizedBox(width: 10.0),
+                                  Text('FAQ'),
+                                ],
+                              ),
+                            ),
+                            const Divider(
+                              color: Colors.black,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      _logOut();
+                                    },
+                                    child: const Text(
+                                      'Sign Out',
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),

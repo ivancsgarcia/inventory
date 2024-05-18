@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/components/function_button.dart';
 import 'package:flutter_application_1/screens/add_item_page.dart';
 import 'package:flutter_application_1/screens/checkoutitem_nonperishables_page.dart';
+import 'package:flutter_application_1/screens/checkoutitem_perishables_page.dart';
 import 'package:flutter_application_1/screens/inventory_report_page.dart';
 import 'package:flutter_application_1/screens/notification_page.dart';
 import 'package:flutter_application_1/screens/product_wastage_page.dart';
@@ -288,7 +289,7 @@ class _HomePageState extends State<HomePage> {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                const CheckOutItemNonPerishablesPage(),
+                                                const CheckOutItemPerishablesPage(),
                                           ),
                                         );
                                       },

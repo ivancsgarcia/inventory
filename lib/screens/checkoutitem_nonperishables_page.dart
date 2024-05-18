@@ -100,6 +100,7 @@ class _CheckOutItemNonPerishablesPageState
                           String productName = data['productName'];
                           String sku = data['sellingPrice'];
                           int quantityCounter = data['quantity']!;
+                          String imageURL = data['imageURL'];
 
                           return Padding(
                             padding: const EdgeInsets.symmetric(
@@ -116,12 +117,10 @@ class _CheckOutItemNonPerishablesPageState
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Flexible(
+                                    Expanded(
                                       child: Container(
-                                        height: 120.0,
-                                        width: 140.0,
-                                        child: Image.asset(
-                                          'lib/assets/images/itrack_logo.png',
+                                        child: Image.network(
+                                          imageURL,
                                         ),
                                       ),
                                     ),
