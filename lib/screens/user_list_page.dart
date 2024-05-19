@@ -175,7 +175,8 @@ class _UserListPageState extends State<UserListPage> {
         ),
       ),
       appBar: AppBar(
-        backgroundColor: const Color(0x70A16B19),
+        foregroundColor: Colors.white,
+        backgroundColor: const Color(0xF17C5C2D),
         centerTitle: true,
         title: const Text('USER LIST'),
       ),

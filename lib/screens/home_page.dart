@@ -168,30 +168,44 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(20.0),
                             color: const Color(0x70A16B19),
                           ),
-                          child: Column(
-                            children: [
-                              const Icon(
-                                Icons.place,
-                                size: 40.0,
-                              ),
-                              FutureBuilder(
-                                future: getBusinessName(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<String> snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const CircularProgressIndicator();
-                                  } else if (snapshot.hasError) {
-                                    return Text('Error: ${snapshot.error}');
-                                  } else if (snapshot.hasData) {
-                                    return Text('${snapshot.data}');
-                                  } else {
-                                    return const Text(
-                                        'Enter Your Business Name');
-                                  }
-                                },
-                              )
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.place,
+                                  size: 40.0,
+                                ),
+                                const SizedBox(width: 10.0),
+                                FutureBuilder(
+                                  future: getBusinessName(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<String> snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const CircularProgressIndicator();
+                                    } else if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    } else if (snapshot.hasData) {
+                                      return Text(
+                                        '${snapshot.data}',
+                                        style: const TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      );
+                                    } else {
+                                      return const Text(
+                                        'Enter Your Business Name',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

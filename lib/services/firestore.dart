@@ -81,6 +81,34 @@ class CrudMethods {
   final CollectionReference dbItems =
       db.collection("users").doc(auth.currentUser?.uid).collection("items");
 
+  // Fetch all items
+  Stream<QuerySnapshot> getAllItems() {
+    return db
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .collection('items')
+        .snapshots();
+  }
+
+  // Get a specific document reference
+  DocumentReference getDocument(String docID) {
+    return db
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .collection('items')
+        .doc(docID);
+  }
+
+  // Update a specific document
+  Future<void> updateDocument(String docID, Map<String, dynamic> data) {
+    return db
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .collection('items')
+        .doc(docID)
+        .update(data);
+  }
+
   // Create
   Future<void> addItem(
       String category,
