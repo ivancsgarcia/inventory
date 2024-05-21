@@ -254,7 +254,7 @@ class _CheckOutItemPerishablesPageState
                                             Row(
                                               children: [
                                                 const Text(
-                                                  "Sold:",
+                                                  "Expired:",
                                                   style: TextStyle(
                                                       fontSize: 16.0,
                                                       fontStyle:

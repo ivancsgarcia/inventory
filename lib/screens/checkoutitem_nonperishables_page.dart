@@ -15,36 +15,7 @@ class _CheckOutItemNonPerishablesPageState
   DateTime now = DateTime.now();
   late DateTime date = DateTime(now.year, now.month, now.day);
   final CrudMethods crudMethods = CrudMethods();
-  int itemSold = 0;
-  int itemDamage = 0;
-
-  void _incrementCounter(
-    String docID,
-    int currentCount,
-  ) async {
-    DocumentReference docRef = FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.uid)
-        .collection('items')
-        .doc(docID);
-
-    // Update the document with the incremented count
-    await docRef.update({'quantity': currentCount + 1});
-  }
-
-  void _decrementCounter(
-    String docID,
-    int currentCount,
-  ) async {
-    DocumentReference docRef = FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.uid)
-        .collection('items')
-        .doc(docID);
-
-    // Update the document with the incremented count
-    await docRef.update({'quantity': currentCount - 1});
-  }
+  Map<String, Map<String, int>> productCounters = {};
 
   @override
   Widget build(BuildContext context) {
@@ -96,12 +67,21 @@ class _CheckOutItemNonPerishablesPageState
                           DocumentSnapshot document = itemList[index];
                           String docID = document.id;
 
+                          if (!productCounters.containsKey(docID)) {
+                            productCounters[docID] = {
+                              'itemDamage': 0,
+                              'itemSold': 0,
+                            };
+                          }
+
                           Map<String, dynamic> data =
                               document.data() as Map<String, dynamic>;
                           String productName = data['productName'];
                           String sku = data['sellingPrice'];
                           int quantityCounter = data['quantity']!;
                           String imageURL = data['imageURL'];
+                          int itemDamage = 0;
+                          int itemSold = 0;
 
                           return Padding(
                             padding: const EdgeInsets.symmetric(
@@ -139,6 +119,7 @@ class _CheckOutItemNonPerishablesPageState
                                                   fontSize: 22.0,
                                                   color: Colors.black),
                                             ),
+                                            const SizedBox(height: 5.0),
 
                                             // SKU
                                             Text(
@@ -148,7 +129,7 @@ class _CheckOutItemNonPerishablesPageState
                                                   fontStyle: FontStyle.italic,
                                                   color: Colors.black),
                                             ),
-
+                                            const SizedBox(height: 5.0),
                                             // Sold
                                             Row(
                                               children: [
@@ -161,77 +142,52 @@ class _CheckOutItemNonPerishablesPageState
                                                       color: Colors.black),
                                                 ),
                                                 const SizedBox(width: 5.0),
-                                                GestureDetector(
-                                                  onTap: () =>
-                                                      _decrementCounter(
-                                                    document.id,
-                                                    quantityCounter,
-                                                  ),
-                                                  child: Container(
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            width: 1.0),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(180)),
-                                                    child: const Text(
-                                                      "-",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                        fontSize: 16.0,
-                                                        // fontStyle:
-                                                        //     FontStyle.italic,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      if (productCounters[
+                                                                  docID]![
+                                                              'itemSold']! >
+                                                          0) {
+                                                        productCounters[docID]![
+                                                                'itemSold'] =
+                                                            productCounters[
+                                                                        docID]![
+                                                                    'itemSold']! -
+                                                                1;
+                                                      }
+                                                    });
+
+                                                    print(productCounters[
+                                                        docID]!['itemSold']);
+                                                  },
+                                                  icon:
+                                                      const Icon(Icons.remove),
                                                 ),
                                                 const SizedBox(width: 5.0),
-                                                Container(
-                                                    height: 30,
-                                                    width: 40,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                            width: 1.0)),
-                                                    child: Text(
-                                                        itemSold.toString())),
+                                                Text(productCounters[docID]![
+                                                        'itemSold']
+                                                    .toString()),
                                                 const SizedBox(width: 5.0),
-                                                GestureDetector(
-                                                  onTap: () =>
-                                                      _incrementCounter(
-                                                    document.id,
-                                                    quantityCounter,
-                                                  ),
-                                                  child: Container(
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            width: 1.0),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(180)),
-                                                    child: const Text(
-                                                      "+",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                        fontSize: 16.0,
-                                                        // fontStyle:
-                                                        //     FontStyle.italic,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      productCounters[docID]![
+                                                              'itemSold'] =
+                                                          productCounters[
+                                                                      docID]![
+                                                                  'itemSold']! +
+                                                              1;
+                                                    });
+
+                                                    print(productCounters[
+                                                        docID]!['itemSold']);
+                                                  },
+                                                  icon: const Icon(Icons.add),
                                                 ),
                                               ],
                                             ),
+                                            const SizedBox(height: 5.0),
 
                                             // Damage
                                             Row(
@@ -245,77 +201,52 @@ class _CheckOutItemNonPerishablesPageState
                                                       color: Colors.black),
                                                 ),
                                                 const SizedBox(width: 5.0),
-                                                GestureDetector(
-                                                  onTap: () =>
-                                                      _decrementCounter(
-                                                    document.id,
-                                                    quantityCounter,
-                                                  ),
-                                                  child: Container(
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            width: 1.0),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(180)),
-                                                    child: const Text(
-                                                      "-",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                        fontSize: 16.0,
-                                                        // fontStyle:
-                                                        //     FontStyle.italic,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      if (productCounters[
+                                                                  docID]![
+                                                              'itemDamage']! >
+                                                          0) {
+                                                        productCounters[docID]![
+                                                                'itemDamage'] =
+                                                            productCounters[
+                                                                        docID]![
+                                                                    'itemDamage']! -
+                                                                1;
+                                                      }
+                                                    });
+
+                                                    print(productCounters[
+                                                        docID]!['itemDamage']);
+                                                  },
+                                                  icon:
+                                                      const Icon(Icons.remove),
                                                 ),
                                                 const SizedBox(width: 5.0),
-                                                Container(
-                                                    height: 30,
-                                                    width: 40,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                            width: 1.0)),
-                                                    child: Text(
-                                                        itemDamage.toString())),
+                                                Text(productCounters[docID]![
+                                                        'itemDamage']
+                                                    .toString()),
                                                 const SizedBox(width: 5.0),
-                                                GestureDetector(
-                                                  onTap: () =>
-                                                      _incrementCounter(
-                                                    document.id,
-                                                    quantityCounter,
-                                                  ),
-                                                  child: Container(
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            width: 1.0),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(180)),
-                                                    child: const Text(
-                                                      "+",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                        fontSize: 16.0,
-                                                        // fontStyle:
-                                                        //     FontStyle.italic,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      productCounters[docID]![
+                                                              'itemDamage'] =
+                                                          productCounters[
+                                                                      docID]![
+                                                                  'itemDamage']! +
+                                                              1;
+                                                    });
+
+                                                    print(productCounters[
+                                                        docID]!['itemDamage']);
+                                                  },
+                                                  icon: const Icon(Icons.add),
                                                 ),
                                               ],
                                             ),
+                                            // const SizedBox(height: 5.0),
                                           ],
                                         ),
                                       ),
@@ -339,7 +270,24 @@ class _CheckOutItemNonPerishablesPageState
                   backgroundColor: MaterialStatePropertyAll(Colors.red),
                   minimumSize: MaterialStatePropertyAll(Size(200, 50)),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  productCounters.forEach((docID, counters) async {
+                    DocumentSnapshot document =
+                        await crudMethods.getDocument(docID).get();
+                    int currentQuantity = document['quantity'];
+
+                    int newQuantity = currentQuantity -
+                        (counters['itemSold']! + counters['itemDamage']!);
+
+                    await crudMethods.updateDocument(docID, {
+                      'quantity': newQuantity,
+                    });
+
+                    setState(() {
+                      productCounters.clear();
+                    });
+                  });
+                },
                 child: const Text(
                   'Save',
                   style: TextStyle(color: Colors.white),
